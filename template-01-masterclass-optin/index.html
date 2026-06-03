@@ -5,1392 +5,1112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ============================================================
-    TEMPLATE 01 — MASTERCLASS / LIVE EVENT REGISTRATION PAGE
-    Structure based on: coachlaunch.com/cashflow-engine-a
+    TEMPLATE 01 — MASTERCLASS REGISTRATION PAGE
+    Hero modelled on: ai.coachlaunch.com
 
-    HOW TO CUSTOMISE:
-    1. Change --accent color (line ~60) to your brand color
-    2. Search "EDIT:" to find every placeholder in order
-    3. Replace [PLACEHOLDER] text with your own content
-    4. Swap placeholder images for real ones
-    5. Wire the forms to GoHighLevel / ConvertKit / ActiveCampaign
-
-    VIBE CODING PROMPT: see bottom of file
+    QUICK CUSTOMISATION:
+    —  Change --accent (green CTA) and --highlight (yellow sub-head)
+    —  Search EDIT: to find every placeholder
+    —  Swap [BRACKET] content with your own copy
+    —  Replace placeholder images with real product/framework shots
+    —  Wire the form to GoHighLevel / ConvertKit (see bottom of file)
   ============================================================ -->
 
   <!-- EDIT: page title -->
   <title>[Your Event Name] — Free Live Masterclass</title>
-  <meta name="description" content="[One sentence describing what attendees will learn and who it's for.]" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─────────────────────────────────────────────────────────
-       BRAND VARIABLES — Edit these to match your client's brand
-       ───────────────────────────────────────────────────────── */
+    /* ── Brand variables ── change these to match your client ── */
     :root {
-      --accent:         #e8003d;   /* CHANGE: main brand/button color */
-      --accent-dark:    #b5002f;   /* CHANGE: darker shade for hover  */
-      --accent-light:   rgba(232, 0, 61, 0.08);
-      --accent-border:  rgba(232, 0, 61, 0.25);
-
-      --text:           #1a1a1a;
-      --text-muted:     #555555;
-      --text-light:     #888888;
-      --bg:             #ffffff;
-      --bg-alt:         #f7f8fa;
-      --bg-dark:        #1a1a1a;
-      --border:         #e5e5e5;
-      --border-dark:    #d0d0d0;
-
-      --font:           'Inter', system-ui, -apple-system, sans-serif;
-      --container:      900px;
-      --radius:         8px;
-      --radius-lg:      12px;
+      --accent:      #22c55e;   /* CHANGE: CTA button + headline accent (green by default) */
+      --accent-dark: #16a34a;   /* CHANGE: button hover state */
+      --highlight:   #fbbf24;   /* CHANGE: sub-headline color (gold/yellow by default) */
+      --bg:          #0f1117;   /* dark page background */
+      --bg-2:        #161b27;   /* slightly lighter dark for contrast */
+      --surface:     rgba(255,255,255,0.05);
+      --border:      rgba(255,255,255,0.10);
+      --white:       #ffffff;
+      --off-white:   #e2e8f0;
+      --muted:       #94a3b8;
+      --font:        'Inter', system-ui, -apple-system, sans-serif;
+      --max-w:       1100px;
     }
 
-    /* ─── Reset ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+
     body {
       font-family: var(--font);
       background: var(--bg);
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.7;
+      color: var(--white);
       -webkit-font-smoothing: antialiased;
     }
-    img { max-width: 100%; display: block; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
 
-    /* ─── Layout ─────────────────────────────────────────────── */
-    .container {
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 20px;
+    /* ── Grid / matrix background texture ────────────────────── */
+    .dark-bg {
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(rgba(99,179,237,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,179,237,0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      position: relative;
     }
-    .section { padding: 60px 0; }
-    .section-alt { background: var(--bg-alt); }
-    .section-dark { background: var(--bg-dark); color: #fff; }
-    .text-center { text-align: center; }
-    .text-accent { color: var(--accent); }
+    /* Extra radial glow behind headline */
+    .dark-bg::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 500px;
+      background: radial-gradient(ellipse at center top, rgba(34,197,94,0.07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-    /* ─── Typography ─────────────────────────────────────────── */
-    h1 { font-size: clamp(28px, 4.5vw, 46px); font-weight: 900; line-height: 1.12; letter-spacing: -0.02em; }
-    h2 { font-size: clamp(24px, 3.5vw, 36px); font-weight: 800; line-height: 1.18; letter-spacing: -0.01em; }
-    h3 { font-size: clamp(20px, 2.5vw, 26px); font-weight: 700; line-height: 1.3; }
-    h4 { font-size: 18px; font-weight: 700; }
-    p  { color: var(--text-muted); line-height: 1.75; }
-    .lead { font-size: 18px; font-weight: 500; color: var(--text); line-height: 1.65; }
-    .eyebrow {
-      display: inline-block;
-      font-size: 12px;
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    /* ── Announcement bar ────────────────────────────────────── */
+    .announce-bar {
+      background: #000;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #dc2626;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      background: #fff;
+      border-radius: 50%;
+      animation: blink 1.4s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ── Hero wrapper ────────────────────────────────────────── */
+    .hero {
+      padding: 48px 0 56px;
+      text-align: center;
+    }
+
+    /* Eyebrow pill */
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      padding: 8px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--off-white);
+      margin-bottom: 28px;
+    }
+    .eyebrow-pill .arrow { color: var(--highlight); font-size: 16px; }
+
+    /* Main headline */
+    .hero-headline {
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 900;
+      line-height: 1.10;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      max-width: 960px;
+      margin: 0 auto 18px;
+    }
+    .hero-headline .accent { color: var(--accent); }
+    .hero-headline .underline { text-decoration: underline; text-decoration-color: var(--white); text-underline-offset: 4px; }
+
+    /* Sub-headline (yellow) */
+    .hero-sub {
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 600;
+      color: var(--highlight);
+      margin-bottom: 44px;
+      line-height: 1.4;
+    }
+
+    /* ── Two-column lower hero ───────────────────────────────── */
+    .hero-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      text-align: left;
+      align-items: start;
+    }
+
+    /* LEFT col */
+    .hero-left { display: flex; flex-direction: column; gap: 18px; }
+
+    .hero-event-name {
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.25;
+    }
+    .hero-tagline {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.4;
+    }
+    .hero-body {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--off-white);
+      line-height: 1.75;
+    }
+    .hero-body strong { color: var(--white); font-weight: 700; }
+
+    /* Countdown timer */
+    .countdown-wrap {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 8px;
+      padding: 16px 20px;
+    }
+    .countdown-label {
+      font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--accent);
-      background: var(--accent-light);
-      border: 1px solid var(--accent-border);
-      border-radius: 999px;
-      padding: 5px 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
     }
-    .section-divider {
-      width: 48px;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 2px;
-      margin: 16px 0 24px;
+    .countdown-timer {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      font-variant-numeric: tabular-nums;
     }
-    .section-divider.centered { margin: 16px auto 24px; }
-
-    /* ─── Buttons ─────────────────────────────────────────────── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-family: var(--font);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: background 0.15s ease, transform 0.1s ease;
-      text-decoration: none;
+    .countdown-timer .sep { color: var(--muted); margin: 0 6px; }
+    .countdown-timer .unit { font-size: 12px; font-weight: 600; color: var(--muted); display: block; text-align: center; margin-top: 2px; }
+    .countdown-cells { display: flex; gap: 4px; }
+    .countdown-cell { text-align: center; }
+    .countdown-cell .num {
+      font-size: clamp(26px, 3vw, 40px);
+      font-weight: 900;
+      display: block;
       line-height: 1;
     }
-    .btn:hover { text-decoration: none; transform: translateY(-1px); }
-    .btn:active { transform: translateY(0); }
+    .countdown-cell .lbl {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+      display: block;
+    }
+    .countdown-sep { font-size: 30px; font-weight: 900; color: var(--muted); line-height: 1; padding-top: 2px; }
 
-    .btn-primary {
+    /* CTA button */
+    .btn-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       background: var(--accent);
       color: #fff;
-      padding: 18px 36px;
-      font-size: 17px;
-      min-height: 58px;
-    }
-    .btn-primary:hover { background: var(--accent-dark); }
-
-    .btn-primary-lg {
-      padding: 20px 44px;
-      font-size: 19px;
-      min-height: 64px;
+      border: none;
+      border-radius: 8px;
+      padding: 18px 28px 14px;
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: 0.01em;
+      cursor: pointer;
       width: 100%;
-      max-width: 480px;
+      text-decoration: none;
+      transition: background 0.15s ease, transform 0.1s ease;
+      text-align: center;
+      line-height: 1.2;
     }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--accent);
-      border: 2px solid var(--accent);
-      padding: 14px 28px;
-      font-size: 15px;
-    }
-    .btn-outline:hover { background: var(--accent-light); }
-
-    /* ─── Form ───────────────────────────────────────────────── */
-    .form-stack { display: flex; flex-direction: column; gap: 12px; }
-
-    .field label {
-      display: block;
+    .btn-cta:hover { background: var(--accent-dark); transform: translateY(-2px); text-decoration: none; }
+    .btn-cta .cta-date {
       font-size: 13px;
       font-weight: 600;
-      color: var(--text);
-      margin-bottom: 5px;
+      color: rgba(255,255,255,0.8);
+      margin-top: 5px;
     }
-    .field input,
-    .field select {
-      width: 100%;
-      font-family: var(--font);
-      font-size: 15px;
-      background: var(--bg);
-      border: 1.5px solid var(--border-dark);
-      border-radius: var(--radius);
-      color: var(--text);
-      padding: 13px 16px;
-      transition: border-color 0.15s;
-      outline: none;
-    }
-    .field input:focus,
-    .field select:focus { border-color: var(--accent); }
-    .field input::placeholder { color: #aaa; }
 
-    .form-note {
+    .privacy-note {
       font-size: 12px;
-      color: var(--text-light);
+      color: var(--muted);
       text-align: center;
       line-height: 1.5;
     }
 
-    /* ─── Cards ──────────────────────────────────────────────── */
-    .card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 28px 24px;
-    }
-    .card-raised {
-      background: var(--bg);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      padding: 32px 28px;
-    }
-
-    /* ─── Registration box (used in hero + closing) ──────────── */
-    .reg-box {
-      background: var(--bg);
-      border: 2px solid var(--accent);
-      border-radius: var(--radius-lg);
-      padding: 32px 28px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.10);
-    }
-    .reg-box-title {
-      font-size: 22px;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 6px;
-      line-height: 1.25;
-    }
-    .reg-box-sub {
-      font-size: 14px;
-      color: var(--text-muted);
-      text-align: center;
-      margin-bottom: 22px;
-    }
-
-    /* ─── Date badge ─────────────────────────────────────────── */
-    .date-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 8px 18px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-    }
-    .date-badge .dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      flex-shrink: 0;
-      animation: pulse 1.8s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.3); }
-    }
-
-    /* ─── Checklist ──────────────────────────────────────────── */
-    .checklist { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .checklist li {
+    /* Trust row */
+    .trust-row {
       display: flex;
+      align-items: center;
       gap: 12px;
-      align-items: flex-start;
-      font-size: 15px;
-      color: var(--text);
-      line-height: 1.65;
     }
-    .check-icon {
-      flex-shrink: 0;
-      margin-top: 3px;
-      width: 20px;
-      height: 20px;
-      background: var(--accent);
-      border-radius: 50%;
+    .trust-avatars {
       display: flex;
-      align-items: center;
-      justify-content: center;
     }
-    .check-icon svg { width: 11px; height: 11px; }
-
-    /* ─── Before/After ───────────────────────────────────────── */
-    .before-after {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .before-col {
-      background: #fff5f5;
-      border: 1px solid #fccaca;
-      border-top: 4px solid #ef4444;
-      border-radius: var(--radius-lg);
-      padding: 28px 24px;
-    }
-    .after-col {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-top: 4px solid #22c55e;
-      border-radius: var(--radius-lg);
-      padding: 28px 24px;
-    }
-    .before-col h3, .after-col h3 { font-size: 18px; margin-bottom: 16px; }
-    .before-col h3 { color: #b91c1c; }
-    .after-col h3 { color: #15803d; }
-    .ba-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .ba-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.6; color: var(--text-muted); }
-    .ba-icon { flex-shrink: 0; margin-top: 3px; font-size: 14px; }
-
-    /* ─── Stats ──────────────────────────────────────────────── */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-    .stat-cell {
-      background: var(--bg);
-      padding: 28px 20px;
-      text-align: center;
-    }
-    .stat-value { font-size: 36px; font-weight: 900; color: var(--accent); letter-spacing: -0.02em; }
-    .stat-label { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
-
-    /* ─── Value grid (3-column) ──────────────────────────────── */
-    .value-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .value-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-top: 4px solid var(--accent);
-      border-radius: var(--radius-lg);
-      padding: 28px 22px;
-      text-align: center;
-    }
-    .value-card .value-icon {
-      width: 52px;
-      height: 52px;
-      background: var(--accent-light);
+    .trust-avatars .av {
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      font-size: 22px;
-    }
-    .value-card h4 { font-size: 16px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
-    .value-card p { font-size: 13px; line-height: 1.65; }
-
-    /* ─── Testimonials ───────────────────────────────────────── */
-    .testimonial-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .testimonial-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 22px 20px;
-    }
-    .t-avatar {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: var(--bg-alt);
-      border: 2px solid var(--border);
+      border: 2px solid var(--bg);
+      background: var(--bg-2);
+      margin-left: -10px;
       overflow: hidden;
-      margin-bottom: 12px;
       flex-shrink: 0;
     }
-    .t-quote { font-size: 14px; font-style: italic; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
-    .t-name { font-size: 13px; font-weight: 700; color: var(--text); }
-    .t-role { font-size: 12px; color: var(--text-light); }
+    .trust-avatars .av:first-child { margin-left: 0; }
+    .trust-avatars .av img { width: 100%; height: 100%; object-fit: cover; }
+    .trust-avatars .av-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #374151, #1f2937);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: var(--muted);
+    }
+    .trust-text { display: flex; flex-direction: column; gap: 2px; }
+    .trust-label { font-size: 13px; font-weight: 600; color: var(--off-white); line-height: 1.3; }
+    .trust-stars { color: #fbbf24; font-size: 14px; letter-spacing: 1px; }
 
-    /* Video embed placeholder */
-    .video-wrap {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      aspect-ratio: 16/9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* RIGHT col */
+    .hero-right {
       position: relative;
-      overflow: hidden;
-    }
-    .video-wrap .play-btn {
-      width: 64px;
-      height: 64px;
-      background: var(--accent);
-      border-radius: 50%;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: transform 0.15s;
+      flex-direction: column;
+      gap: 12px;
     }
-    .video-wrap .play-btn:hover { transform: scale(1.08); }
-    .video-wrap .play-btn svg { width: 22px; height: 22px; margin-left: 4px; }
 
-    /* ─── FAQ ────────────────────────────────────────────────── */
-    .faq-list { display: flex; flex-direction: column; gap: 12px; }
-    .faq-item {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-    .faq-q {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      padding: 18px 22px;
-      font-family: var(--font);
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text);
-      background: none;
-      border: none;
-      cursor: pointer;
-      text-align: left;
-    }
-    .faq-q .faq-arrow {
-      flex-shrink: 0;
-      width: 22px;
-      height: 22px;
-      background: var(--accent-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s;
-    }
-    .faq-q.open .faq-arrow { transform: rotate(180deg); }
-    .faq-a {
-      display: none;
-      padding: 0 22px 20px;
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.75;
-      border-top: 1px solid var(--border);
-      padding-top: 16px;
-    }
-    .faq-a.open { display: block; }
-
-    /* ─── Host bio ───────────────────────────────────────────── */
-    .host-layout {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 48px;
-      align-items: start;
-    }
-    .host-photo {
-      width: 100%;
-      aspect-ratio: 3/4;
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-light);
+    .ai-badge {
+      position: absolute;
+      top: -16px;
+      right: 0;
+      background: rgba(15,17,23,0.9);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 7px 18px;
       font-size: 13px;
-      font-weight: 600;
-    }
-    .host-credentials { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
-    .credential {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-    }
-    .credential .c-icon {
-      width: 28px;
-      height: 28px;
-      background: var(--accent-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      z-index: 2;
     }
 
-    /* ─── Image placeholder ──────────────────────────────────── */
-    .img-placeholder {
-      background: var(--bg-alt);
-      border: 1px dashed var(--border-dark);
-      border-radius: var(--radius);
+    /* Mockup image cards */
+    .mockup-card {
+      background: var(--bg-2);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    .mockup-img-placeholder {
+      width: 100%;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      color: var(--text-light);
+      gap: 10px;
+      color: rgba(255,255,255,0.25);
       font-size: 13px;
-      font-weight: 500;
-    }
-    .img-placeholder svg { opacity: 0.4; }
-
-    /* ─── Urgency bar ────────────────────────────────────────── */
-    .urgency-bar {
-      background: var(--accent);
-      color: #fff;
-      text-align: center;
-      padding: 12px 20px;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-    }
-
-    /* ─── Header ─────────────────────────────────────────────── */
-    .site-header {
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 0;
-    }
-    .site-header .inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .logo-placeholder {
-      height: 44px;
-      width: 180px;
-      background: var(--bg-alt);
-      border: 1px dashed var(--border-dark);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-light);
-      letter-spacing: 0.08em;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
     }
+    .mockup-img-placeholder svg { opacity: 0.3; }
 
-    /* ─── Footer ─────────────────────────────────────────────── */
+    .live-dot-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--off-white);
+    }
+    .live-dot-badge .dot {
+      width: 8px; height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: blink 1.4s infinite;
+    }
+
+    /* Host circle photo overlapping the mockup */
+    .host-circle {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      border: 3px solid var(--bg);
+      background: #1e293b;
+      overflow: hidden;
+      position: absolute;
+      bottom: -20px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-align: center;
+    }
+    .host-circle img { width:100%; height:100%; object-fit:cover; }
+
+    /* ── Rest of page styles ─────────────────────────────────── */
+    .section { padding: 72px 0; border-top: 1px solid rgba(255,255,255,0.06); }
+    .section-light { background: rgba(255,255,255,0.02); }
+
+    h2 {
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+    h3 { font-size: 22px; font-weight: 800; color: var(--white); line-height: 1.3; }
+    h4 { font-size: 17px; font-weight: 700; color: var(--white); }
+    p  { font-size: 15px; color: var(--off-white); line-height: 1.8; }
+
+    .eyebrow-sm {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .accent-divider {
+      width: 44px; height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 14px 0 24px;
+    }
+    .accent-divider.center { margin: 14px auto 24px; }
+
+    /* Checklist */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+    .checklist li {
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: 15px; color: var(--off-white); line-height: 1.65;
+    }
+    .check-icon {
+      flex-shrink: 0; margin-top: 2px;
+      width: 20px; height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .check-icon svg { width:11px; height:11px; }
+    .x-icon { background: #ef4444; }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .stat-cell {
+      background: var(--bg-2);
+      padding: 28px 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 38px; font-weight: 900; color: var(--accent); letter-spacing: -0.02em; }
+    .stat-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-top: 6px; }
+
+    /* Before/After */
+    .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .ba-col {
+      background: var(--bg-2);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 26px 22px;
+    }
+    .ba-col.bad  { border-top: 3px solid #ef4444; }
+    .ba-col.good { border-top: 3px solid var(--accent); }
+    .ba-col h3 { font-size: 17px; margin-bottom: 16px; }
+    .ba-col.bad h3  { color: #f87171; }
+    .ba-col.good h3 { color: var(--accent); }
+    .ba-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .ba-list li { display:flex; gap:10px; font-size:14px; color: var(--off-white); line-height:1.6; }
+
+    /* Value pillars */
+    .pillars-grid { display: grid; grid-template-columns: repeat(3,1fr); gap:18px; }
+    .pillar-card {
+      background: var(--bg-2);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-top: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 28px 22px;
+      text-align: center;
+    }
+    .pillar-num {
+      font-size: 36px; font-weight: 900;
+      color: var(--accent); opacity: 0.6;
+      line-height: 1; margin-bottom: 12px;
+    }
+    .pillar-card h4 { font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+    .pillar-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* Host bio */
+    .host-layout { display: grid; grid-template-columns: 220px 1fr; gap: 48px; align-items: start; }
+    .host-photo-box {
+      width: 100%; aspect-ratio: 3/4;
+      background: var(--bg-2);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 13px; font-weight: 600;
+    }
+    .credentials { display:flex; flex-direction:column; gap:10px; margin-top:20px; }
+    .cred {
+      display:flex; gap:10px; align-items:center;
+      font-size:13px; font-weight:600; color: var(--off-white);
+    }
+    .cred-icon {
+      width:28px; height:28px; border-radius:50%;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.25);
+      display:flex; align-items:center; justify-content:center;
+      font-size:13px; flex-shrink:0; color: var(--accent);
+    }
+
+    /* Testimonials */
+    .testimonial-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:14px; }
+    .t-card {
+      background: var(--bg-2);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 22px 20px;
+    }
+    .t-avatar {
+      width:50px; height:50px; border-radius:50%;
+      background: #1e293b;
+      border: 2px solid rgba(255,255,255,0.1);
+      overflow:hidden; margin-bottom:12px;
+    }
+    .t-avatar img { width:100%; height:100%; object-fit:cover; }
+    .t-avatar .av-ph {
+      width:100%; height:100%;
+      background: linear-gradient(135deg,#374151,#1f2937);
+      display:flex; align-items:center; justify-content:center;
+      font-size:13px; font-weight:700; color: var(--muted);
+    }
+    .t-quote { font-size:14px; font-style:italic; color: var(--off-white); line-height:1.7; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.07); }
+    .t-name { font-size:13px; font-weight:700; color: var(--white); }
+    .t-role { font-size:12px; color: var(--muted); margin-top:2px; }
+
+    /* Video placeholders */
+    .video-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .video-wrap {
+      background: var(--bg-2); border:1px solid rgba(255,255,255,0.08);
+      border-radius:10px; aspect-ratio:16/9;
+      display:flex; align-items:center; justify-content:center;
+      position:relative; overflow:hidden; cursor:pointer;
+    }
+    .play-btn {
+      width:56px; height:56px; border-radius:50%;
+      background: var(--accent); display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 4px 20px rgba(34,197,94,0.35);
+      transition: transform 0.15s;
+    }
+    .video-wrap:hover .play-btn { transform: scale(1.1); }
+    .play-btn svg { width:20px; height:20px; margin-left:4px; }
+
+    /* FAQ */
+    .faq-list { display:flex; flex-direction:column; gap:10px; }
+    .faq-item { background: var(--bg-2); border:1px solid rgba(255,255,255,0.08); border-radius:8px; overflow:hidden; }
+    .faq-btn {
+      width:100%; display:flex; justify-content:space-between; align-items:center; gap:16px;
+      padding:18px 22px; font-family:var(--font); font-size:16px; font-weight:700;
+      color: var(--white); background:none; border:none; cursor:pointer; text-align:left;
+    }
+    .faq-arrow {
+      flex-shrink:0; width:22px; height:22px; border-radius:50%;
+      background: rgba(34,197,94,0.12);
+      display:flex; align-items:center; justify-content:center;
+      transition: transform 0.2s;
+    }
+    .faq-btn.open .faq-arrow { transform: rotate(180deg); }
+    .faq-ans { display:none; padding:0 22px 18px; font-size:15px; color:var(--off-white); line-height:1.75; border-top:1px solid rgba(255,255,255,0.06); padding-top:14px; }
+    .faq-ans.open { display:block; }
+
+    /* Registration form */
+    .form-card {
+      background: var(--bg-2);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-top: 3px solid var(--accent);
+      border-radius: 12px;
+      padding: 36px 32px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .field { display:flex; flex-direction:column; gap:6px; }
+    .field label { font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color: var(--muted); }
+    .field input, .field select {
+      font-family:var(--font); font-size:15px;
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius:6px; color:var(--white);
+      padding:12px 14px; outline:none;
+      transition: border-color 0.15s;
+    }
+    .field input:focus, .field select:focus { border-color: var(--accent); }
+    .field input::placeholder { color: rgba(255,255,255,0.25); }
+
+    /* Footer */
     .site-footer {
-      background: var(--bg-alt);
-      border-top: 1px solid var(--border);
+      background: #000;
+      border-top: 1px solid rgba(255,255,255,0.06);
       padding: 36px 0 28px;
       text-align: center;
     }
-    .footer-nav { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
-    .footer-nav a { font-size: 13px; font-weight: 600; color: var(--text-muted); }
-    .footer-disclaimer { font-size: 12px; color: var(--text-light); max-width: 680px; margin: 0 auto 12px; line-height: 1.6; }
-    .footer-copy { font-size: 12px; color: var(--text-light); }
+    .footer-nav { display:flex; justify-content:center; gap:24px; margin-bottom:14px; flex-wrap:wrap; }
+    .footer-nav a { font-size:13px; font-weight:600; color: var(--muted); text-decoration:none; }
+    .footer-nav a:hover { color: var(--white); }
+    .footer-disclaimer { font-size:12px; color: rgba(255,255,255,0.2); max-width:680px; margin:0 auto 12px; line-height:1.6; }
+    .footer-copy { font-size:12px; color: rgba(255,255,255,0.2); }
 
-    /* ─── Responsive ─────────────────────────────────────────── */
+    /* Responsive */
     @media (max-width: 768px) {
-      .before-after { grid-template-columns: 1fr; }
-      .stats-row { grid-template-columns: 1fr; }
-      .value-grid { grid-template-columns: 1fr; }
-      .testimonial-grid { grid-template-columns: 1fr; }
-      .host-layout { grid-template-columns: 1fr; }
-      .host-photo { aspect-ratio: 1; max-width: 220px; }
-    }
-    @media (max-width: 560px) {
-      h1 { font-size: 26px; }
-      h2 { font-size: 22px; }
-      .btn-primary-lg { font-size: 16px; padding: 16px 24px; }
+      .hero-cols { grid-template-columns:1fr; }
+      .hero-right { margin-top: 24px; }
+      .before-after, .pillars-grid { grid-template-columns:1fr; }
+      .stats-grid { grid-template-columns:1fr; }
+      .testimonial-grid, .video-grid { grid-template-columns:1fr; }
+      .host-layout { grid-template-columns:1fr; }
     }
   </style>
 </head>
-<body>
+<body class="dark-bg">
 
-  <!-- ══════════════════════════════════════════════
-    URGENCY TOP BAR — remove if not needed
-  ══════════════════════════════════════════════ -->
-  <div class="urgency-bar">
-    <!-- EDIT: urgency message — date, limited spots, no replay etc. -->
-    Limited spots available &nbsp;·&nbsp; Thursday [DATE] at [TIME] &nbsp;·&nbsp; No replay offered
+  <!-- ══════════════════════════════════════════════════
+    ANNOUNCEMENT BAR
+  ══════════════════════════════════════════════════ -->
+  <div class="announce-bar">
+    <span class="live-badge"><span class="live-dot"></span> LIVE</span>
+    <!-- EDIT: announcement text -->
+    Join the New [Your Event Name] Masterclass FREE!
   </div>
 
 
-  <!-- ══════════════════════════════════════════════
-    HEADER
-  ══════════════════════════════════════════════ -->
-  <header class="site-header">
-    <div class="container inner">
-      <!-- EDIT: replace with <img src="your-logo.png" alt="Your Brand" style="height:44px;" /> -->
-      <div class="logo-placeholder">Your Logo Here</div>
-    </div>
-  </header>
+  <!-- ══════════════════════════════════════════════════
+    HERO — above the fold
+  ══════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="container">
 
+      <!-- Eyebrow pill -->
+      <!-- EDIT: who this is for -->
+      <div class="eyebrow-pill">
+        For [Ideal Client Description] &nbsp;<span class="arrow">&#128073;</span>
+      </div>
 
-  <!-- ══════════════════════════════════════════════
-    HERO
-  ══════════════════════════════════════════════ -->
-  <section style="padding: 64px 0 56px; background: var(--bg);">
-    <div class="container text-center">
-
-      <!-- EDIT: eyebrow label -->
-      <div class="eyebrow" style="margin-bottom: 22px;">Free Live Masterclass</div>
-
-      <!-- EDIT: main headline — outcome-first, specific, punchy -->
-      <h1 style="max-width: 780px; margin: 0 auto 20px;">
-        Join the <span class="text-accent">[FREE] Live "[Your Method Name]"</span><br/>
-        Masterclass &amp; Discover How To<br/>
-        [Achieve Specific Result] Every [Timeframe]
+      <!-- Main headline -->
+      <!-- EDIT: headline — wrap key phrase in <span class="accent"> -->
+      <h1 class="hero-headline">
+        NEW Masterclass <span class="accent">"[Your Method Name™]"</span>
+        [Main Outcome — e.g. We're Using To Close 8-12 High Ticket Clients Every 28 Days.]
+        <span class="underline">[Bold Claim — e.g. Zero Cost Ads.]</span>
       </h1>
 
-      <!-- EDIT: sub headline — who it's for + the big promise -->
-      <p class="lead" style="max-width: 640px; margin: 0 auto 32px;">
-        For [ideal client] who want to [achieve outcome] without [main objection/pain point] — even if [limiting belief].
+      <!-- Sub-headline (yellow) -->
+      <!-- EDIT: objection-killer — "Without X or Y" -->
+      <p class="hero-sub">
+        Without [Pain Point 1] Or [Pain Point 2 that Don't Work]
       </p>
 
-      <!-- EDIT: date and time -->
-      <div style="margin-bottom: 32px;">
-        <div class="date-badge">
-          <span class="dot"></span>
-          LIVE &nbsp;·&nbsp; [Day], [Month] [Date] &nbsp;·&nbsp; [Time] [Timezone]
-        </div>
-      </div>
+      <!-- Two-column lower hero -->
+      <div class="hero-cols">
 
-      <!-- CTA — first instance -->
-      <!-- EDIT: button text + href (link to form below or external reg page) -->
-      <a href="#register" class="btn btn-primary" style="font-size: 18px; padding: 18px 44px; min-height: 60px;">
-        Join The FREE Masterclass &rarr;
-      </a>
+        <!-- LEFT: copy + CTA -->
+        <div class="hero-left">
 
-      <!-- Privacy note -->
-      <p style="font-size: 12px; color: var(--text-light); margin-top: 12px;">
-        Your information is 100% secure and will never be shared.
-      </p>
+          <!-- EDIT: event name heading -->
+          <div class="hero-event-name">
+            Join the FREE [Brand Name] "[Your Method Name]" Masterclass
+          </div>
 
-    </div>
-  </section>
+          <!-- EDIT: tagline -->
+          <div class="hero-tagline">
+            [Short punchy tagline. e.g. No Tech Skills. No Duct Tape. No Overwhelm.]
+          </div>
 
-
-  <!-- ══════════════════════════════════════════════
-    PRODUCT / FRAMEWORK IMAGE STRIP
-  ══════════════════════════════════════════════ -->
-  <section style="padding: 0 0 56px; background: var(--bg);">
-    <div class="container">
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
-
-        <!-- EDIT: replace each with a real product/framework/mockup image -->
-        <div class="img-placeholder" style="height: 180px;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12h6M12 9v6"/></svg>
-          <span>[Framework Image 1]</span>
-          <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);">AI Powered</span>
-        </div>
-
-        <div class="img-placeholder" style="height: 180px;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12h6M12 9v6"/></svg>
-          <span>[Framework Image 2]</span>
-          <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);">Live Event</span>
-        </div>
-
-        <div class="img-placeholder" style="height: 180px;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12h6M12 9v6"/></svg>
-          <span>[Framework Image 3]</span>
-          <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);">Step-by-Step</span>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════════
-    PROBLEM INTRO
-  ══════════════════════════════════════════════ -->
-  <section class="section section-alt">
-    <div class="container">
-      <div style="display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: center;">
-
-        <div>
-          <!-- EDIT: section headline — frame the problem your audience faces -->
-          <div class="eyebrow" style="margin-bottom: 14px;">Who This Is For</div>
-          <h2 style="margin-bottom: 16px;">
-            Fill Your [Event/Program] With
-            <span class="text-accent">Premium High-Ticket Buyers...</span>
-          </h2>
-          <div class="section-divider"></div>
-
-          <!-- EDIT: 2-3 paragraphs describing the problem and who this is for -->
-          <p style="margin-bottom: 16px; font-size: 16px;">
-            If you're a [coach/consultant/expert] who is [brief description of their current situation], this masterclass was designed specifically for you.
+          <!-- EDIT: 1-2 sentence body copy -->
+          <p class="hero-body">
+            Just [mechanism] doing the heavy lifting while you walk away with a
+            "[Your Deliverable]" in [timeframe] flat without [objection].
+            <strong>[Bold outcome or differentiator.]</strong>
           </p>
-          <p style="font-size: 16px;">
-            [Name of host] has helped [number] of [ideal clients] go from [before state] to [after state] — and in this free masterclass, [he/she/they] will show you the exact system to do the same.
+
+          <!-- Countdown timer -->
+          <div class="countdown-wrap">
+            <div class="countdown-label">Hurry! Masterclass Starts In</div>
+            <div class="countdown-cells" id="countdown">
+              <div class="countdown-cell"><span class="num" id="cd-d">00</span><span class="lbl">Days</span></div>
+              <div class="countdown-sep">:</div>
+              <div class="countdown-cell"><span class="num" id="cd-h">00</span><span class="lbl">Hrs</span></div>
+              <div class="countdown-sep">:</div>
+              <div class="countdown-cell"><span class="num" id="cd-m">00</span><span class="lbl">Min</span></div>
+              <div class="countdown-sep">:</div>
+              <div class="countdown-cell"><span class="num" id="cd-s">00</span><span class="lbl">Sec</span></div>
+            </div>
+          </div>
+
+          <!-- CTA button -->
+          <!-- EDIT: button text + date + href -->
+          <a href="#register" class="btn-cta">
+            Join The FREE Masterclass
+            <span class="cta-date">[Day], [Month] [Date] | [Time] [Timezone]</span>
+          </a>
+
+          <!-- Privacy note -->
+          <p class="privacy-note">
+            We respect your privacy. Your information is 100% safe with us.
           </p>
-        </div>
 
-        <!-- EDIT: replace with a real host or event photo -->
-        <div class="img-placeholder" style="height: 340px;">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-          <span>[Host Photo]</span>
-        </div>
+          <!-- Trust row -->
+          <div class="trust-row">
+            <div class="trust-avatars">
+              <!-- EDIT: replace av-placeholder divs with real <img> tags -->
+              <div class="av"><div class="av-placeholder">A</div></div>
+              <div class="av"><div class="av-placeholder">B</div></div>
+              <div class="av"><div class="av-placeholder">C</div></div>
+              <div class="av"><div class="av-placeholder">D</div></div>
+              <div class="av"><div class="av-placeholder">E</div></div>
+            </div>
+            <div class="trust-text">
+              <span class="trust-label">Trusted By Countless<br/><strong>[Your Audience — e.g. High Ticket Experts]</strong></span>
+              <span class="trust-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+          </div>
 
-      </div>
+        </div><!-- /hero-left -->
+
+
+        <!-- RIGHT: mockup images -->
+        <div class="hero-right">
+
+          <!-- AI POWERED badge -->
+          <!-- EDIT: change badge text if needed -->
+          <div class="ai-badge">AI POWERED</div>
+
+          <!-- EDIT: replace each mockup-img-placeholder with a real <img src="..."> -->
+          <!-- Top mockup (e.g. calculator / tool screenshot) -->
+          <div class="mockup-card" style="position:relative;">
+            <div class="mockup-img-placeholder" style="height: 200px;">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              [Tool / Calculator Screenshot]<br/>
+              <span style="font-size:11px;">Replace with real image</span>
+            </div>
+          </div>
+
+          <!-- Bottom mockup (e.g. formula diagram) — with host circle photo -->
+          <div class="mockup-card" style="position:relative; padding-bottom: 28px;">
+            <div class="mockup-img-placeholder" style="height: 200px;">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              [Formula / System Diagram]<br/>
+              <span style="font-size:11px;">Replace with real image</span>
+            </div>
+            <!-- EDIT: replace inner content with <img src="host-photo.jpg"> -->
+            <div class="host-circle">[Host<br/>Photo]</div>
+          </div>
+
+          <!-- Live event indicator -->
+          <div style="text-align:right; padding-right:4px;">
+            <span class="live-dot-badge"><span class="dot"></span> Live Event</span>
+          </div>
+
+        </div><!-- /hero-right -->
+
+      </div><!-- /hero-cols -->
     </div>
   </section>
 
 
-  <!-- ══════════════════════════════════════════════
-    PAIN POINTS (Long-Form Copy)
-  ══════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container" style="max-width: 760px;">
-
-      <!-- EDIT: opener — "Dear [Ideal Client]" style direct-response copy -->
-      <p style="font-size: 15px; font-weight: 600; color: var(--text-light); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.1em;">A message from [Host Name]</p>
-      <h2 style="margin-bottom: 8px;">Dear [Ideal Client],</h2>
-      <div class="section-divider"></div>
-
-      <!-- EDIT: opening hook — start with their pain, be specific -->
-      <p class="lead" style="margin-bottom: 20px;">
-        I know what it feels like to [relatable pain point]. I spent [timeframe] trying to [old approach] — and it nearly cost me [what they risked losing].
-      </p>
-
-      <p style="margin-bottom: 16px;">
-        Maybe you can relate. You're [doing X], but [problem]. You're spending [money/time] on [thing], and [frustrating result]. And deep down, you know there has to be a better way.
-      </p>
-
-      <p style="margin-bottom: 32px;">
-        If any of this sounds familiar — you're in the right place. Because I've figured out exactly what's broken, and more importantly, I know how to fix it.
-      </p>
-
-      <!-- EDIT: pain point bullets — 4-6 specific frustrations your audience feels -->
-      <h3 style="margin-bottom: 18px;">Sound familiar?</h3>
-      <ul class="checklist" style="margin-bottom: 36px;">
-        <li>
-          <div class="check-icon" style="background: #ef4444;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          </div>
-          [Pain point 1 — be specific and emotional]
-        </li>
-        <li>
-          <div class="check-icon" style="background: #ef4444;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          </div>
-          [Pain point 2 — the thing they try that doesn't work]
-        </li>
-        <li>
-          <div class="check-icon" style="background: #ef4444;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          </div>
-          [Pain point 3 — the belief they've started to form about themselves]
-        </li>
-        <li>
-          <div class="check-icon" style="background: #ef4444;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          </div>
-          [Pain point 4 — the cost of the status quo]
-        </li>
-      </ul>
-
-      <!-- EDIT: transition — bridge from problem to solution -->
-      <p style="font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 0;">
-        The good news? It's not your fault — and there's a proven way out. That's exactly what I'm going to show you at this FREE masterclass.
-      </p>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════
     PROOF STATS
-  ══════════════════════════════════════════════ -->
-  <section class="section section-alt">
+  ══════════════════════════════════════════════════ -->
+  <section class="section section-light">
     <div class="container">
-
-      <div class="text-center" style="margin-bottom: 36px;">
-        <div class="eyebrow" style="margin-bottom: 12px;">Real Results</div>
-        <!-- EDIT: proof section headline -->
+      <div style="text-align:center; margin-bottom:32px;">
+        <span class="eyebrow-sm">Real Results</span>
         <h2>The Numbers Speak for Themselves</h2>
-        <div class="section-divider centered"></div>
+        <div class="accent-divider center"></div>
       </div>
-
-      <!-- EDIT: replace with YOUR real, specific numbers — never vague -->
-      <div class="stats-row">
+      <!-- EDIT: use real, specific numbers — never vague -->
+      <div class="stats-grid">
         <div class="stat-cell">
           <div class="stat-value">[$X.XM]</div>
-          <div class="stat-label">[Label — e.g. "in client results"]</div>
+          <div class="stat-label">[e.g. in client results]</div>
         </div>
         <div class="stat-cell">
           <div class="stat-value">[XXX]</div>
-          <div class="stat-label">[Label — e.g. "events delivered"]</div>
+          <div class="stat-label">[e.g. events delivered]</div>
         </div>
         <div class="stat-cell">
           <div class="stat-value">[X×]</div>
-          <div class="stat-label">[Label — e.g. "higher conversion"]</div>
+          <div class="stat-label">[e.g. higher conversion rate]</div>
         </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════════
-    FRAMEWORK / METHOD SECTION
-  ══════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container">
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;">
-
-        <!-- EDIT: replace with a diagram or framework visual -->
-        <div class="img-placeholder" style="height: 320px;">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          <span>[Your Method/Framework Diagram]</span>
-          <span style="font-size: 11px; color: var(--text-light);">Replace with real image</span>
-        </div>
-
-        <div>
-          <div class="eyebrow" style="margin-bottom: 14px;">The Method</div>
-          <!-- EDIT: your method/system name and description -->
-          <h2 style="margin-bottom: 12px;">Introducing:<br/><span class="text-accent">"[Your Method Name™]"</span></h2>
-          <div class="section-divider"></div>
-          <p style="margin-bottom: 20px; font-size: 16px;">
-            [1-2 sentences describing what your method is and why it's different from everything else your audience has tried.]
-          </p>
-          <p style="font-size: 16px;">
-            [Continue the description — what makes it unique, how long it takes, what the outcome is.]
-          </p>
-        </div>
-
       </div>
     </div>
   </section>
 
 
-  <!-- ══════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════
     WHAT YOU'LL DISCOVER
-  ══════════════════════════════════════════════ -->
-  <section class="section section-alt">
-    <div class="container" style="max-width: 760px;">
-
-      <div class="text-center" style="margin-bottom: 36px;">
-        <div class="eyebrow" style="margin-bottom: 12px;">Inside The Masterclass</div>
-        <h2>In This Free Masterclass,<br/>You'll Discover:</h2>
-        <div class="section-divider centered"></div>
+  ══════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container" style="max-width:760px;">
+      <div style="text-align:center; margin-bottom:32px;">
+        <span class="eyebrow-sm">Inside The Masterclass</span>
+        <h2>In This FREE Masterclass, You'll Discover:</h2>
+        <div class="accent-divider center"></div>
       </div>
-
-      <!-- EDIT: 5-7 specific outcomes. Start each with an action verb. -->
+      <!-- EDIT: 5 specific, outcome-focused bullets -->
       <ul class="checklist">
-        <li>
-          <div class="check-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-          </div>
-          [Outcome 1 — what they'll learn and why it matters]
-        </li>
-        <li>
-          <div class="check-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-          </div>
-          [Outcome 2 — the specific technique or framework they'll get]
-        </li>
-        <li>
-          <div class="check-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-          </div>
-          [Outcome 3 — a result they'll be able to achieve after the call]
-        </li>
-        <li>
-          <div class="check-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-          </div>
-          [Outcome 4 — something surprising or counterintuitive they'll learn]
-        </li>
-        <li>
-          <div class="check-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-          </div>
-          [Outcome 5 — the main transformation or takeaway]
-        </li>
+        <li><div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>[Outcome 1 — what they'll learn and be able to do after]</li>
+        <li><div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>[Outcome 2 — specific technique or framework]</li>
+        <li><div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>[Outcome 3 — a result they'll achieve after the call]</li>
+        <li><div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>[Outcome 4 — something surprising or counterintuitive]</li>
+        <li><div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>[Outcome 5 — the main transformation or takeaway]</li>
       </ul>
-
     </div>
   </section>
 
 
-  <!-- ══════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════
     BEFORE / AFTER
-  ══════════════════════════════════════════════ -->
-  <section class="section">
+  ══════════════════════════════════════════════════ -->
+  <section class="section section-light">
     <div class="container">
-
-      <div class="text-center" style="margin-bottom: 36px;">
-        <div class="eyebrow" style="margin-bottom: 12px;">Before vs. After</div>
-        <!-- EDIT: comparison section headline -->
+      <div style="text-align:center; margin-bottom:36px;">
+        <span class="eyebrow-sm">Before vs. After</span>
         <h2>Stop [Old Way]. Start [New Way].</h2>
-        <div class="section-divider centered"></div>
+        <div class="accent-divider center"></div>
       </div>
-
       <div class="before-after">
-
-        <!-- EDIT: before column — their current painful reality -->
-        <div class="before-col">
-          <h3>Before: [The Broken Model]</h3>
+        <!-- EDIT: before column -->
+        <div class="ba-col bad">
+          <h3>[The Broken Model]</h3>
           <ul class="ba-list">
-            <li><span class="ba-icon">✗</span> [Pain 1 — what their life looks like now]</li>
-            <li><span class="ba-icon">✗</span> [Pain 2 — what they're wasting money/time on]</li>
-            <li><span class="ba-icon">✗</span> [Pain 3 — the stress or uncertainty they feel]</li>
-            <li><span class="ba-icon">✗</span> [Pain 4 — what they're not achieving]</li>
+            <li><span>✗</span> [Pain 1 — their current struggle]</li>
+            <li><span>✗</span> [Pain 2 — what they're wasting money on]</li>
+            <li><span>✗</span> [Pain 3 — the stress they feel]</li>
+            <li><span>✗</span> [Pain 4 — what they're not achieving]</li>
           </ul>
         </div>
-
-        <!-- EDIT: after column — the world your method unlocks -->
-        <div class="after-col">
-          <h3>After: [Your Method Name]</h3>
+        <!-- EDIT: after column -->
+        <div class="ba-col good">
+          <h3>[Your Method Name]</h3>
           <ul class="ba-list">
-            <li><span class="ba-icon">✓</span> [Win 1 — the positive outcome they'll experience]</li>
-            <li><span class="ba-icon">✓</span> [Win 2 — the specific result they'll get]</li>
-            <li><span class="ba-icon">✓</span> [Win 3 — the freedom or confidence they'll feel]</li>
-            <li><span class="ba-icon">✓</span> [Win 4 — the transformation they'll achieve]</li>
+            <li><span style="color:var(--accent)">✓</span> [Win 1 — the positive outcome]</li>
+            <li><span style="color:var(--accent)">✓</span> [Win 2 — specific result they'll get]</li>
+            <li><span style="color:var(--accent)">✓</span> [Win 3 — the freedom they'll feel]</li>
+            <li><span style="color:var(--accent)">✓</span> [Win 4 — the transformation]</li>
           </ul>
         </div>
-
       </div>
     </div>
   </section>
 
 
-  <!-- ══════════════════════════════════════════════
-    URGENCY / SCARCITY
-  ══════════════════════════════════════════════ -->
-  <section class="section" style="background: var(--accent); color: #fff;">
-    <div class="container text-center" style="max-width: 700px;">
-
-      <!-- EDIT: urgency headline -->
-      <h2 style="color: #fff; margin-bottom: 16px;">This Is Time-Sensitive</h2>
-      <div class="section-divider centered" style="background: rgba(255,255,255,0.5);"></div>
-
-      <!-- EDIT: scarcity/urgency copy — be honest and specific -->
-      <p style="color: rgba(255,255,255,0.9); font-size: 17px; margin-bottom: 8px;">
-        This masterclass is kept small and intimate — maximum [X] attendees — so every person gets real value, not just a passive webinar experience.
-      </p>
-      <p style="color: rgba(255,255,255,0.85); font-size: 16px; margin-bottom: 32px;">
-        There is <strong>no replay</strong>. You must attend live to get the full [framework/system/training].
-      </p>
-
-      <a href="#register" class="btn" style="background: #fff; color: var(--accent); font-size: 18px; padding: 18px 44px; min-height: 60px; border-radius: var(--radius);">
-        Secure My Spot Now &rarr;
-      </a>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════════
-    VALUE GRID (Connection / Certainty / Clarity)
-  ══════════════════════════════════════════════ -->
-  <section class="section section-alt">
-    <div class="container">
-
-      <div class="text-center" style="margin-bottom: 36px;">
-        <div class="eyebrow" style="margin-bottom: 12px;">What You'll Walk Away With</div>
-        <h2>Three Things You'll Leave With</h2>
-        <div class="section-divider centered"></div>
-      </div>
-
-      <!-- EDIT: three value pillars — what attendees get from the event -->
-      <div class="value-grid">
-
-        <div class="value-card">
-          <div class="value-icon">01</div>
-          <!-- EDIT: pillar 1 title and description -->
-          <h4>[Value Pillar 1]</h4>
-          <p>[2-3 sentence description of what they'll specifically gain. Be concrete.]</p>
-        </div>
-
-        <div class="value-card">
-          <div class="value-icon">02</div>
-          <!-- EDIT: pillar 2 -->
-          <h4>[Value Pillar 2]</h4>
-          <p>[2-3 sentence description. Lead with a specific outcome they'll be able to achieve.]</p>
-        </div>
-
-        <div class="value-card">
-          <div class="value-icon">03</div>
-          <!-- EDIT: pillar 3 -->
-          <h4>[Value Pillar 3]</h4>
-          <p>[2-3 sentence description. End with the emotion they'll feel after the event.]</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════════
-    HOST BIO
-  ══════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════
+    VALUE PILLARS
+  ══════════════════════════════════════════════════ -->
   <section class="section">
     <div class="container">
-
-      <div class="text-center" style="margin-bottom: 40px;">
-        <div class="eyebrow" style="margin-bottom: 12px;">Your Host</div>
-        <h2>Meet [Host Name]</h2>
-        <div class="section-divider centered"></div>
+      <div style="text-align:center; margin-bottom:36px;">
+        <span class="eyebrow-sm">What You'll Walk Away With</span>
+        <h2>Three Things You'll Leave With</h2>
+        <div class="accent-divider center"></div>
       </div>
-
-      <div class="host-layout">
-
-        <!-- EDIT: replace with real host photo -->
-        <div>
-          <div class="host-photo">[Host Photo]</div>
-          <!-- EDIT: credentials list — use real numbers always -->
-          <div class="host-credentials">
-            <div class="credential"><div class="c-icon">$</div> [$X,XXX,XXX] in [result]</div>
-            <div class="credential"><div class="c-icon">#</div> [X] Years Experience</div>
-            <div class="credential"><div class="c-icon">★</div> [Credential or award]</div>
-            <div class="credential"><div class="c-icon">✓</div> [Another specific proof point]</div>
-          </div>
+      <!-- EDIT: three value pillars -->
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-num">01</div>
+          <h4>[Value Pillar 1]</h4>
+          <p>[2-3 sentences. Be concrete about what they'll gain.]</p>
         </div>
-
-        <!-- EDIT: host bio — tell the story, include the doubt before the proof -->
-        <div>
-          <p style="font-size: 16px; margin-bottom: 16px;">
-            [Host Name] is [who they are]. [One sentence on their background / where they came from].
-          </p>
-          <p style="margin-bottom: 16px;">
-            [The story — what wasn't working, the moment things changed, how they discovered the method]. Name the doubt before the proof.
-          </p>
-          <p style="margin-bottom: 16px;">
-            Today, [host name] has [specific result]. [He/She/They] created [method name] to help [ideal clients] achieve [outcome] — without [main objection].
-          </p>
-          <p>
-            In this free masterclass, [host name] will show you exactly how [he/she/they] did it and how you can replicate the same results.
-          </p>
+        <div class="pillar-card">
+          <div class="pillar-num">02</div>
+          <h4>[Value Pillar 2]</h4>
+          <p>[2-3 sentences. Lead with a specific outcome.]</p>
         </div>
-
+        <div class="pillar-card">
+          <div class="pillar-num">03</div>
+          <h4>[Value Pillar 3]</h4>
+          <p>[2-3 sentences. End with how they'll feel after.]</p>
+        </div>
       </div>
     </div>
   </section>
 
 
-  <!-- ══════════════════════════════════════════════
-    VIDEO TESTIMONIALS
-  ══════════════════════════════════════════════ -->
-  <section class="section section-alt">
+  <!-- ══════════════════════════════════════════════════
+    HOST BIO
+  ══════════════════════════════════════════════════ -->
+  <section class="section section-light">
     <div class="container">
-
-      <div class="text-center" style="margin-bottom: 36px;">
-        <div class="eyebrow" style="margin-bottom: 12px;">Client Success Stories</div>
-        <h2>Stories of Success with [Host Name]</h2>
-        <div class="section-divider centered"></div>
+      <div style="text-align:center; margin-bottom:40px;">
+        <span class="eyebrow-sm">Your Host</span>
+        <h2>Meet [Host Name]</h2>
+        <div class="accent-divider center"></div>
       </div>
-
-      <!-- EDIT: embed real Vimeo/YouTube videos. Replace each video-wrap div with:
-           <iframe src="https://www.youtube.com/embed/VIDEO_ID" ...></iframe>
-           or use your platform's embed code -->
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px;">
-
+      <div class="host-layout">
         <div>
-          <div class="video-wrap" style="margin-bottom: 10px;">
-            <div class="play-btn">
-              <svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
-            </div>
+          <!-- EDIT: replace with <img src="host-photo.jpg" alt="[Host Name]" /> -->
+          <div class="host-photo-box">[Host Photo]</div>
+          <!-- EDIT: credentials — use specific, real numbers always -->
+          <div class="credentials">
+            <div class="cred"><div class="cred-icon">$</div>[$X,XXX,XXX] in [result]</div>
+            <div class="cred"><div class="cred-icon">#</div>[X] Years of Experience</div>
+            <div class="cred"><div class="cred-icon">★</div>[Award or credential]</div>
+            <div class="cred"><div class="cred-icon">✓</div>[Another specific proof point]</div>
           </div>
-          <div style="font-size: 13px; font-weight: 700; color: var(--text);">[Client Name]</div>
-          <div style="font-size: 12px; color: var(--text-light);">[Niche / Role]</div>
         </div>
-
         <div>
-          <div class="video-wrap" style="margin-bottom: 10px;">
-            <div class="play-btn">
-              <svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-          <div style="font-size: 13px; font-weight: 700; color: var(--text);">[Client Name]</div>
-          <div style="font-size: 12px; color: var(--text-light);">[Niche / Role]</div>
+          <!-- EDIT: host bio copy — include the doubt before the proof -->
+          <p style="margin-bottom:16px; font-size:16px;">[Host Name] is [who they are and their background].</p>
+          <p style="margin-bottom:16px;">[The story — what wasn't working, the moment of change, how they discovered the method. Name the doubt before the proof.]</p>
+          <p style="margin-bottom:16px;">Today, [host name] has [specific result] and created [method name] to help [ideal clients] achieve [outcome] without [main objection].</p>
+          <p>In this free masterclass, [he/she/they] will show you exactly how [he/she/they] did it — and how you can do the same.</p>
         </div>
-
-        <div>
-          <div class="video-wrap" style="margin-bottom: 10px;">
-            <div class="play-btn">
-              <svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-          <div style="font-size: 13px; font-weight: 700; color: var(--text);">[Client Name]</div>
-          <div style="font-size: 12px; color: var(--text-light);">[Niche / Role]</div>
-        </div>
-
-      </div>
-
-      <!-- EDIT: text testimonials — use real quotes with real names + results -->
-      <div class="testimonial-grid">
-
-        <div class="testimonial-card">
-          <div class="t-avatar">
-            <img src="https://placehold.co/52x52/f0f0f0/aaaaaa?text=?" alt="Client" style="width:100%; height:100%; object-fit:cover;" />
-          </div>
-          <p class="t-quote">"[Specific result quote — include a number if possible. E.g. '$25,000 in 8 weeks — while still validating the offer.']"</p>
-          <div class="t-name">[Client First + Last Name]</div>
-          <div class="t-role">[Their niche or title]</div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="t-avatar">
-            <img src="https://placehold.co/52x52/f0f0f0/aaaaaa?text=?" alt="Client" style="width:100%; height:100%; object-fit:cover;" />
-          </div>
-          <p class="t-quote">"[Testimonial 2 — result-focused, specific dollar amount or timeframe]"</p>
-          <div class="t-name">[Client Name]</div>
-          <div class="t-role">[Role]</div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="t-avatar">
-            <img src="https://placehold.co/52x52/f0f0f0/aaaaaa?text=?" alt="Client" style="width:100%; height:100%; object-fit:cover;" />
-          </div>
-          <p class="t-quote">"[Testimonial 3 — can be emotional/transformation focused]"</p>
-          <div class="t-name">[Client Name]</div>
-          <div class="t-role">[Role]</div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="t-avatar">
-            <img src="https://placehold.co/52x52/f0f0f0/aaaaaa?text=?" alt="Client" style="width:100%; height:100%; object-fit:cover;" />
-          </div>
-          <p class="t-quote">"[Testimonial 4]"</p>
-          <div class="t-name">[Client Name]</div>
-          <div class="t-role">[Role]</div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="t-avatar">
-            <img src="https://placehold.co/52x52/f0f0f0/aaaaaa?text=?" alt="Client" style="width:100%; height:100%; object-fit:cover;" />
-          </div>
-          <p class="t-quote">"[Testimonial 5]"</p>
-          <div class="t-name">[Client Name]</div>
-          <div class="t-role">[Role]</div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="t-avatar">
-            <img src="https://placehold.co/52x52/f0f0f0/aaaaaa?text=?" alt="Client" style="width:100%; height:100%; object-fit:cover;" />
-          </div>
-          <p class="t-quote">"[Testimonial 6]"</p>
-          <div class="t-name">[Client Name]</div>
-          <div class="t-role">[Role]</div>
-        </div>
-
       </div>
     </div>
   </section>
 
 
-  <!-- ══════════════════════════════════════════════
-    REGISTRATION FORM — main (id="register")
-  ══════════════════════════════════════════════ -->
-  <section id="register" class="section">
-    <div class="container text-center" style="max-width: 560px;">
+  <!-- ══════════════════════════════════════════════════
+    VIDEO TESTIMONIALS
+  ══════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:36px;">
+        <span class="eyebrow-sm">Client Success Stories</span>
+        <h2>Stories of Success with [Host Name]</h2>
+        <div class="accent-divider center"></div>
+      </div>
+      <!-- EDIT: replace video-wrap divs with real video embeds:
+           <iframe src="https://www.youtube.com/embed/VIDEO_ID" width="100%" height="100%" frameborder="0" allowfullscreen></iframe> -->
+      <div class="video-grid" style="margin-bottom:36px;">
+        <div><div class="video-wrap"><div class="play-btn"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div></div><div style="margin-top:8px; font-size:13px; font-weight:700;">[Client Name]</div><div style="font-size:12px; color:var(--muted);">[Niche]</div></div>
+        <div><div class="video-wrap"><div class="play-btn"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div></div><div style="margin-top:8px; font-size:13px; font-weight:700;">[Client Name]</div><div style="font-size:12px; color:var(--muted);">[Niche]</div></div>
+        <div><div class="video-wrap"><div class="play-btn"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div></div><div style="margin-top:8px; font-size:13px; font-weight:700;">[Client Name]</div><div style="font-size:12px; color:var(--muted);">[Niche]</div></div>
+      </div>
+      <!-- EDIT: text testimonials -->
+      <div class="testimonial-grid">
+        <div class="t-card"><div class="t-avatar"><div class="av-ph">?</div></div><p class="t-quote">"[Specific result quote — include a number if possible]"</p><div class="t-name">[Client Name]</div><div class="t-role">[Niche / Role]</div></div>
+        <div class="t-card"><div class="t-avatar"><div class="av-ph">?</div></div><p class="t-quote">"[Testimonial 2 — result focused, specific number or timeframe]"</p><div class="t-name">[Client Name]</div><div class="t-role">[Niche / Role]</div></div>
+        <div class="t-card"><div class="t-avatar"><div class="av-ph">?</div></div><p class="t-quote">"[Testimonial 3 — emotional or transformation focused]"</p><div class="t-name">[Client Name]</div><div class="t-role">[Niche / Role]</div></div>
+        <div class="t-card"><div class="t-avatar"><div class="av-ph">?</div></div><p class="t-quote">"[Testimonial 4]"</p><div class="t-name">[Client Name]</div><div class="t-role">[Niche / Role]</div></div>
+        <div class="t-card"><div class="t-avatar"><div class="av-ph">?</div></div><p class="t-quote">"[Testimonial 5]"</p><div class="t-name">[Client Name]</div><div class="t-role">[Niche / Role]</div></div>
+        <div class="t-card"><div class="t-avatar"><div class="av-ph">?</div></div><p class="t-quote">"[Testimonial 6]"</p><div class="t-name">[Client Name]</div><div class="t-role">[Niche / Role]</div></div>
+      </div>
+    </div>
+  </section>
 
-      <div class="eyebrow" style="margin-bottom: 14px;">Your Next Step Is Simple</div>
-      <!-- EDIT: closing CTA headline -->
-      <h2 style="margin-bottom: 8px;">
-        Stop [old behaviour].<br/>Start Getting <span class="text-accent">[Desired Result].</span>
-      </h2>
-      <div class="section-divider centered"></div>
-      <p style="margin-bottom: 32px; font-size: 16px;">
-        Register below and join [Host Name] live for this free [X]-minute masterclass.
-        Get confident. Get results. Get paid.
-      </p>
 
-      <div class="reg-box">
-        <div class="reg-box-title">Reserve Your FREE Spot</div>
+  <!-- ══════════════════════════════════════════════════
+    REGISTRATION FORM
+  ══════════════════════════════════════════════════ -->
+  <section id="register" class="section section-light">
+    <div class="container" style="max-width:560px; text-align:center;">
+      <span class="eyebrow-sm">Your Next Step Is Simple</span>
+      <h2 style="margin-bottom:8px;">Stop [Old Behaviour].<br/>Start Getting <span style="color:var(--accent)">[Desired Result].</span></h2>
+      <div class="accent-divider center"></div>
+      <p style="margin-bottom:32px; font-size:16px;">Register below and join [Host Name] live for this free [X]-minute masterclass.</p>
 
-        <!-- EDIT: event date/time in the form card -->
-        <div class="reg-box-sub">
-          [Day], [Month] [Date] &nbsp;·&nbsp; [Time] [Timezone] &nbsp;·&nbsp; Free
-        </div>
+      <div class="form-card">
+        <div style="font-size:20px; font-weight:800; text-align:center; margin-bottom:6px;">Reserve Your FREE Spot</div>
+        <!-- EDIT: date/time -->
+        <div style="font-size:14px; color:var(--muted); text-align:center; margin-bottom:24px;">[Day], [Month] [Date] &nbsp;·&nbsp; [Time] [Timezone] &nbsp;·&nbsp; Free</div>
 
-        <!-- EDIT: wire this form to GoHighLevel / ConvertKit / ActiveCampaign
-             For GHL: replace <form> action with your GHL form embed or
-             copy the field names to match your GHL custom form -->
-        <form class="form-stack" onsubmit="handleSubmit(event)">
-
-          <!-- EDIT: add/remove fields to match your ESP requirements -->
-          <div class="field">
-            <label for="reg-first">First Name</label>
-            <input id="reg-first" name="first_name" type="text" placeholder="Your first name" required />
-          </div>
-
-          <div class="field">
-            <label for="reg-email">Email Address</label>
-            <input id="reg-email" name="email" type="email" placeholder="your@email.com" required />
-          </div>
-
-          <!-- Optional: phone field -->
-          <div class="field">
-            <label for="reg-phone">Phone (optional — for SMS reminders)</label>
-            <input id="reg-phone" name="phone" type="tel" placeholder="+1 (555) 000-0000" />
-          </div>
-
+        <!-- EDIT: wire to GoHighLevel / ConvertKit — see JS at bottom -->
+        <form style="display:flex;flex-direction:column;gap:14px;" onsubmit="handleSubmit(event)">
+          <div class="field"><label>First Name</label><input type="text" name="first_name" placeholder="Your first name" required /></div>
+          <div class="field"><label>Email Address</label><input type="email" name="email" placeholder="your@email.com" required /></div>
+          <div class="field"><label>Phone (optional — for SMS reminders)</label><input type="tel" name="phone" placeholder="+1 (555) 000-0000" /></div>
           <!-- EDIT: CTA button text -->
-          <button type="submit" class="btn btn-primary btn-primary-lg" style="margin: 8px auto 0;">
+          <a href="#" onclick="this.closest('form').requestSubmit(); return false;" class="btn-cta" style="margin-top:6px;">
             Register For FREE &rarr;
-          </button>
-
-          <p class="form-note">
-            100% free. No credit card required. Your information is kept private and never shared.
-          </p>
-
+            <span class="cta-date">[Day] · [Date] · [Time]</span>
+          </a>
+          <p style="font-size:12px; color:var(--muted); text-align:center;">100% free. No credit card required. Your info is kept private.</p>
         </form>
       </div>
 
-      <!-- EDIT: host sign-off -->
-      <div style="margin-top: 32px; font-size: 15px; color: var(--text-muted);">
+      <!-- Sign-off -->
+      <div style="margin-top:32px; font-size:15px; color:var(--muted);">
         <p>See you at the event,</p>
-        <p style="font-weight: 700; color: var(--text); margin-top: 4px;">[Host Name]</p>
-        <p style="font-size: 13px; margin-top: 6px; color: var(--text-light);">
-          P.S. — [One final urgency/reinforcement line. Remind them this is free and there's no replay.]
-        </p>
+        <p style="font-weight:700; color:var(--white); margin-top:4px;">[Host Name]</p>
+        <p style="font-size:13px; margin-top:6px; color:rgba(255,255,255,0.3);">P.S. — [Final urgency line. Remind them it's free and there's no replay.]</p>
       </div>
-
     </div>
   </section>
 
 
-  <!-- ══════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════
     FAQ
-  ══════════════════════════════════════════════ -->
-  <section class="section section-alt">
-    <div class="container" style="max-width: 720px;">
-
-      <div class="text-center" style="margin-bottom: 36px;">
-        <div class="eyebrow" style="margin-bottom: 12px;">FAQ</div>
+  ══════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container" style="max-width:720px;">
+      <div style="text-align:center; margin-bottom:36px;">
+        <span class="eyebrow-sm">FAQ</span>
         <h2>Frequently Asked Questions</h2>
-        <div class="section-divider centered"></div>
+        <div class="accent-divider center"></div>
       </div>
-
-      <!-- EDIT: add/edit FAQ questions. The accordion is powered by the JS at the bottom. -->
       <div class="faq-list">
-
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            Is this just another sales pitch?
-            <span class="faq-arrow">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-            </span>
-          </button>
-          <div class="faq-a">
-            <!-- EDIT: your honest answer to the sales pitch objection -->
-            [Host Name] will be sharing [specific content]. Yes, at the end there will be an opportunity to learn about [next step/offer], but the training itself is 100% real and actionable. You will walk away with [specific outcome] whether you take the next step or not.
-          </div>
+          <button class="faq-btn" onclick="toggleFaq(this)">Is this just another sales pitch?<span class="faq-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span></button>
+          <div class="faq-ans">[Honest answer. Acknowledge the pitch element but lead with the real training value they'll get.]</div>
         </div>
-
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            Will there be a replay?
-            <span class="faq-arrow">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-            </span>
-          </button>
-          <div class="faq-a">
-            <!-- EDIT: replay policy -->
-            No replay will be offered. This event is designed to be live and interactive — the value comes from being in the room in real time. Register and block out the [X] minutes on your calendar.
-          </div>
+          <button class="faq-btn" onclick="toggleFaq(this)">Will there be a replay?<span class="faq-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span></button>
+          <div class="faq-ans">No replay will be offered. This event is live and interactive — the value comes from being in the room in real time.</div>
         </div>
-
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            How often do you run this event?
-            <span class="faq-arrow">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-            </span>
-          </button>
-          <div class="faq-a">
-            <!-- EDIT: event frequency -->
-            [Host Name] runs this event [frequency — e.g. "once a month"]. Spots are limited each session. If you can make this one, register now. If you miss it, sign up for the waitlist for the next session at [email or link].
-          </div>
+          <button class="faq-btn" onclick="toggleFaq(this)">How often do you run this event?<span class="faq-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span></button>
+          <div class="faq-ans">[Host Name] runs this event [frequency]. Spots are limited each session. Register now to secure your place.</div>
         </div>
-
-        <!-- EDIT: add more FAQ items using the same structure -->
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            Who is this masterclass for?
-            <span class="faq-arrow">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-            </span>
-          </button>
-          <div class="faq-a">
-            <!-- EDIT: who it's for -->
-            This is specifically for [ideal client description]. If you are [qualifying criteria] and want [desired outcome], this masterclass was built for you. It is not for [who it's NOT for — set expectations].
-          </div>
+          <button class="faq-btn" onclick="toggleFaq(this)">Who is this masterclass for?<span class="faq-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span></button>
+          <div class="faq-ans">This is specifically for [ideal client description]. If you are [qualifying criteria] and want [desired outcome], this was built for you.</div>
         </div>
-
       </div>
     </div>
   </section>
 
 
-  <!-- ══════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════
     FINAL CTA
-  ══════════════════════════════════════════════ -->
-  <section class="section" style="background: var(--bg-dark); color: #fff;">
-    <div class="container text-center" style="max-width: 660px;">
-
-      <!-- EDIT: final CTA headline — last chance, emotional, outcome-focused -->
-      <h2 style="color: #fff; margin-bottom: 16px;">
-        [Ideal Client] — This Is Your Moment
-      </h2>
-      <p style="color: rgba(255,255,255,0.75); font-size: 17px; margin-bottom: 32px; max-width: 520px; margin-left: auto; margin-right: auto;">
-        [One final push — why now, what they'll miss if they don't, what's waiting on the other side.]
-      </p>
-
-      <!-- EDIT: button text + date -->
-      <a href="#register" class="btn btn-primary btn-primary-lg" style="max-width: 400px;">
+  ══════════════════════════════════════════════════ -->
+  <section class="section" style="background:#000; border-top:1px solid rgba(255,255,255,0.06); text-align:center;">
+    <div class="container" style="max-width:640px;">
+      <span class="eyebrow-sm">Limited Spots Available</span>
+      <h2 style="margin-bottom:16px;">[Ideal Client] — This Is Your Moment</h2>
+      <p style="margin-bottom:32px; font-size:17px; color:rgba(255,255,255,0.65); max-width:500px; margin-left:auto; margin-right:auto;">[One final push — what they'll miss if they don't register, what's waiting on the other side.]</p>
+      <a href="#register" class="btn-cta" style="max-width:420px; margin:0 auto;">
         Register For FREE &rarr;
+        <span class="cta-date">[Day] · [Date] · [Time] · No Replay</span>
       </a>
-
-      <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 16px;">
-        [Day], [Date] &nbsp;·&nbsp; [Time] [Timezone] &nbsp;·&nbsp; 100% Free &nbsp;·&nbsp; No Replay
-      </p>
-
-      <!-- EDIT: final group/community image -->
-      <div class="img-placeholder" style="height: 180px; margin-top: 36px; border-color: rgba(255,255,255,0.1);">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <span style="color: rgba(255,255,255,0.3);">[Community / Event Photo]</span>
-      </div>
-
     </div>
   </section>
 
 
-  <!-- ══════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════
     FOOTER
-  ══════════════════════════════════════════════ -->
+  ══════════════════════════════════════════════════ -->
   <footer class="site-footer">
     <div class="container">
-
-      <!-- EDIT: footer nav links -->
+      <!-- EDIT: footer nav -->
       <div class="footer-nav">
-        <a href="#">Home</a>
-        <a href="#">Terms</a>
-        <a href="#">Privacy</a>
-        <a href="#">Disclaimer</a>
-        <a href="#">Contact</a>
+        <a href="#">Home</a><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Disclaimer</a><a href="#">Contact</a>
       </div>
-
-      <!-- EDIT: platform disclaimer if running Facebook/Google ads -->
+      <!-- EDIT: disclaimer (keep if running ads) -->
       <p class="footer-disclaimer">
-        This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc. Results mentioned are not typical. Individual results will vary based on effort, experience, and market conditions.
+        This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc. Results mentioned are not typical. Individual results will vary.
       </p>
-
       <!-- EDIT: copyright -->
-      <div class="footer-copy">&copy; [Year] [Your Brand Name] — All rights reserved.</div>
-
+      <div class="footer-copy">&copy; [Year] [Your Brand] — All rights reserved.</div>
     </div>
   </footer>
 
 
-  <!-- ══════════════════════════════════════════════
-    JAVASCRIPT
-  ══════════════════════════════════════════════ -->
   <script>
-    /* FAQ accordion */
-    function toggleFaq(btn) {
-      const answer = btn.nextElementSibling;
-      const isOpen = answer.classList.contains('open');
-      // Close all
-      document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
-      document.querySelectorAll('.faq-q').forEach(b => b.classList.remove('open'));
-      // Open clicked (if it was closed)
-      if (!isOpen) {
-        answer.classList.add('open');
-        btn.classList.add('open');
+    /* ── Countdown timer ──────────────────────────────────────
+       EDIT: set your event date here (YYYY, MM-1, DD, HH, MM, SS)
+       e.g. June 5 2025 12:00pm = new Date(2025, 5, 5, 12, 0, 0)
+    ────────────────────────────────────────────────────────── */
+    const eventDate = new Date(2025, 11, 31, 12, 0, 0); // EDIT: your event date
+
+    function updateCountdown() {
+      const now  = new Date();
+      const diff = eventDate - now;
+      if (diff <= 0) {
+        document.getElementById('cd-d').textContent = '00';
+        document.getElementById('cd-h').textContent = '00';
+        document.getElementById('cd-m').textContent = '00';
+        document.getElementById('cd-s').textContent = '00';
+        return;
       }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000)  / 60000);
+      const s = Math.floor((diff % 60000)    / 1000);
+      document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+      document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+      document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* ── FAQ accordion ──────────────────────────────────────── */
+    function toggleFaq(btn) {
+      const ans = btn.nextElementSibling;
+      const open = ans.classList.contains('open');
+      document.querySelectorAll('.faq-ans').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-btn').forEach(b => b.classList.remove('open'));
+      if (!open) { ans.classList.add('open'); btn.classList.add('open'); }
     }
 
-    /* Form submission — replace with your platform's logic */
+    /* ── Form submission ────────────────────────────────────────
+       INTEGRATION OPTIONS:
+       ─────────────────────────────────────────────────────────
+       GoHighLevel:
+         Replace the <form> tag with your GHL embed snippet, OR:
+         fetch('YOUR_GHL_WEBHOOK_URL', {method:'POST', body: new FormData(e.target)})
+         .then(() => window.location.href = '/thank-you')
+
+       ConvertKit:
+         Set <form action="YOUR_CK_URL" method="POST"> and remove onsubmit.
+
+       ActiveCampaign:
+         Use their form embed code or POST to their handler URL.
+
+       Redirect after register:
+         window.location.href = '/thank-you';
+       ─────────────────────────────────────────────────────────
+    */
     function handleSubmit(e) {
       e.preventDefault();
-      /*
-        INTEGRATION OPTIONS:
-        ─────────────────────────────────────────────
-        GoHighLevel:
-          Replace this <form> tag with your GHL form embed snippet,
-          or POST to your GHL webhook:
-          fetch('https://your-ghl-webhook.com', { method: 'POST', body: new FormData(e.target) })
-
-        ConvertKit:
-          Replace <form action="#"> with your ConvertKit form action URL
-          and remove this onsubmit handler.
-
-        ActiveCampaign:
-          Use AC's embed form code or POST to their form handler URL.
-
-        Redirect after submit:
-          window.location.href = '/thank-you';
-        ─────────────────────────────────────────────
-      */
       alert('Registration submitted! Replace this handler with your platform integration.');
     }
   </script>
@@ -1398,79 +1118,84 @@
 
   <!--
   ================================================================
-  VIBE CODING PROMPT — Template 01: Live Event / Masterclass Page
+  VIBE CODING PROMPT — Template 01: Masterclass Registration Page
+  Based on: ai.coachlaunch.com above-the-fold structure
   ================================================================
 
-  Copy the prompt below and paste it into Claude, ChatGPT, or any
-  AI coding tool. Fill in the [BRACKETS] with your client's details.
-  The AI will regenerate this entire page with their content.
+  Copy this prompt into Claude, ChatGPT, or any AI coding tool.
+  Fill in the [BRACKETS] and it will regenerate the full page.
 
-  ──────────────────────────────────────────────────────────────────
+  ─────────────────────────────────────────────────────────────
 
-  Create a complete single-file HTML landing page for a free live
-  masterclass / virtual event registration page.
+  Create a complete single-file HTML masterclass registration / opt-in
+  landing page. Match this exact visual design:
 
-  DESIGN RULES:
-  - Light white background (#ffffff) with light grey alternate sections (#f7f8fa)
-  - One accent/brand color (I will provide the hex code below) used for
-    buttons, highlights, dividers, and links
-  - Font: Inter from Google Fonts (400, 500, 600, 700, 800, 900)
-  - Buttons: accent color fill, white text, border-radius 8px, bold uppercase
-  - Clean, professional, direct-response style — no dark backgrounds
-  - Mobile responsive
+  DESIGN:
+  - Dark background (#0f1117) with a subtle blue-tinted grid texture
+    (44px grid, rgba(99,179,237,0.04))
+  - Radial green glow behind the headline area
+  - Font: Inter from Google Fonts (400–900 weights)
+  - Primary accent: [ACCENT COLOR HEX] — used for CTA button, headline
+    accent phrase, checklist icons, dividers
+  - Secondary accent (sub-headline): [HIGHLIGHT COLOR HEX]
+  - All text on dark surfaces (white / off-white / slate)
+  - Buttons: accent fill, white text, bold, 8px radius
+  - Dark cards: rgba(255,255,255,0.05) bg, rgba(255,255,255,0.10) border
 
-  PAGE SECTIONS (in this exact order):
-  1. Urgency top bar — event date + "no replay" message
-  2. Centered header — logo only
-  3. Hero — eyebrow pill, h1 headline, sub copy, live date badge with
-     pulsing dot, primary CTA button, privacy note
-  4. 3-column product/framework image strip
-  5. Problem intro — heading + host photo (right column)
-  6. Long-form copy — "Dear [Ideal Client]" opener, pain point bullets
-     with red X icons
-  7. Proof stats — 3-column grid with accent-colored numbers
-  8. Method/framework section — diagram image (left) + description (right)
-  9. "What you'll discover" — checklist with accent-colored check icons
-  10. Before/After comparison — red "broken" column vs green "solution" column
-  11. Urgency/scarcity banner — accent background, white text, CTA button
-  12. 3-column value grid — numbered pillars (01, 02, 03)
-  13. Host bio — photo + credentials list (left) + story copy (right)
-  14. Video testimonials — 3 placeholder video embeds in a row
-  15. Text testimonials — 2x3 grid with avatar, quote, name, role
-  16. Registration form section — bordered form box with fields
-  17. FAQ accordion — 4 questions with expand/collapse
-  18. Final dark CTA section — dark background, white text, repeat CTA
-  19. Footer — nav links, disclaimer, copyright
+  ABOVE-THE-FOLD STRUCTURE (exact):
+  1. Black announcement bar — pulsing red LIVE badge + event name
+  2. Hero section:
+     a. Centered eyebrow pill badge — "For [Ideal Client]"
+     b. Large centered headline — white text, one phrase in accent color,
+        last bold claim with underline
+     c. Sub-headline in highlight color — "Without [X] Or [Y]"
+     d. TWO COLUMNS:
+        LEFT: event name (large bold), tagline, body copy,
+              live countdown timer (D:H:M:S), big accent CTA button
+              with date below, privacy note, overlapping avatar trust row
+        RIGHT: "AI POWERED" pill badge (top-right), two stacked
+               product/mockup image cards, small circular host photo
+               overlapping bottom card, "Live Event" red-dot indicator
+
+  FULL PAGE SECTIONS (in order):
+  1. Announcement bar
+  2. Hero (above the fold as described)
+  3. Proof stats — 3-column grid with large accent numbers
+  4. What you'll discover — centered checklist with accent check icons
+  5. Before/After — red "broken" card vs green "after" card
+  6. Value pillars — 3-column numbered grid (01, 02, 03)
+  7. Host bio — photo + credentials left, story copy right
+  8. Video testimonials — 3 placeholders in a row
+  9. Text testimonials — 2×3 grid (avatar, quote, name, role)
+  10. Registration form — dark card with accent top border, fields, button
+  11. FAQ — dark accordion (4 questions)
+  12. Final CTA — black bg, white text, repeat button
+  13. Footer — links, FB disclaimer, copyright
 
   CONTENT TO INSERT:
-  - Brand/business name: [YOUR BRAND]
-  - Accent color (hex): [e.g. #e8003d]
+  - Brand name: [YOUR BRAND]
+  - Accent color: [HEX]
+  - Highlight/sub-head color: [HEX]
   - Host name: [FULL NAME]
-  - Event name: [EVENT TITLE]
-  - Event date + time + timezone: [e.g. Thursday, June 12 at 12pm PT]
-  - Ideal client description: [e.g. coaches charging $3K+]
-  - Main headline: [outcome-focused, specific]
-  - Sub headline: [who it's for + the big promise]
-  - Pain points (4 bullets): [specific frustrations]
-  - Proof stats (3): [label / number / sub-label each]
-  - Method/system name: [YOUR METHOD NAME™]
-  - Method description (2 paragraphs): [what it is + why it's different]
-  - What you'll discover (5 bullets): [specific outcomes]
-  - Before column (4 bullets): [painful current reality]
-  - After column (4 bullets): [positive transformation]
-  - Urgency copy (2 sentences): [limited spots + no replay]
-  - Value pillars (3): [title + 2-3 sentence description each]
-  - Host bio (4 paragraphs): [story, doubt before proof, result, method]
-  - Host credentials (4): [specific numbers and claims]
-  - Testimonials (6): [quote / name / role each]
-  - FAQ (4 Q&A pairs): [honest answers]
-  - Final CTA headline: [emotional, outcome-focused]
-  - Footer links: [Home, Terms, Privacy, Disclaimer, Contact]
-  - Copyright: [Year + Brand Name]
+  - Event name: [TITLE]
+  - Eyebrow: [ideal client description]
+  - Headline: [outcome, method name in accent, bold claim underlined]
+  - Sub-headline: [without X or Y]
+  - Event date/time: [day, date, time, timezone] for countdown target
+  - CTA button text: [e.g. "Join The FREE Masterclass"]
+  - Trust row label: [e.g. "High Ticket Experts"]
+  - Pain points (4): [before column bullets]
+  - Wins (4): [after column bullets]
+  - Outcomes (5): [what you'll discover checklist]
+  - Value pillars (3): [title + 2-3 sentences each]
+  - Host bio (4 paragraphs + 4 credentials)
+  - Testimonials (6): [quote / name / role]
+  - FAQ (4 Q&A pairs)
+  - Footer links + copyright
 
-  OUTPUT: One complete self-contained HTML file. No external CSS files.
-  No JavaScript frameworks. Include GoHighLevel / ConvertKit / ActiveCampaign
-  integration comments in the form submit handler.
+  OUTPUT: One self-contained HTML file. No CSS frameworks. No JS
+  frameworks. Countdown timer in vanilla JS. FAQ accordion in
+  vanilla JS. GoHighLevel/ConvertKit integration comments in form.
 
   ================================================================
   END VIBE CODING PROMPT
