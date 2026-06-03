@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+    TEMPLATE 01 — MASTERCLASS OPT-IN / REGISTRATION PAGE
+    Coach Launch Design System · Dark · Crimson · Montserrat
+
+    HOW TO USE THIS TEMPLATE:
+    Search for every "<!-- EDIT:" comment below and swap in your
+    own content. The page works as-is with placeholder copy.
+
+    SECTIONS TO CUSTOMISE:
+    1. <title> and meta description
+    2. Logo path (or swap for your own)
+    3. Eyebrow pill text
+    4. Hero headline + sub copy
+    5. Quote callout
+    6. Checklist bullets ("What you'll discover")
+    7. Stats row (use REAL numbers only — never vague claims)
+    8. Testimonials
+    9. Registration form fields + CTA label
+    10. Footer brand name + links
+  ============================================================ -->
+
+  <!-- EDIT: page title and description -->
+  <title>Free Live Masterclass — [Your Event Name]</title>
+  <meta name="description" content="[One-sentence description of what attendees will learn. Be specific.]" />
+
+  <!-- Montserrat from Google Fonts — no install needed -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Design Tokens ────────────────────────────────────── */
+    :root {
+      --crimson:        #db0063;
+      --crimson-dark:   #a8004b;
+      --crimson-glow:   rgba(219, 0, 99, 0.18);
+      --crimson-tint:   rgba(219, 0, 99, 0.10);
+      --crimson-line:   rgba(219, 0, 99, 0.30);
+
+      --dark:           #111111;
+      --dark-2:         #1a1a1a;
+      --dark-3:         #222222;
+      --dark-4:         #2b2b2b;
+      --dark-5:         #1f1f1f;
+
+      --white:          #ffffff;
+      --off-white:      #f0f0f0;
+      --light-grey:     #cccccc;
+      --muted:          #888888;
+      --grey:           #555555;
+
+      --font:           'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+      --container:      960px;
+      --gutter:         24px;
+    }
+
+    /* ── Reset ────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--dark);
+      color: var(--white);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Signature crimson grid texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(219,0,99,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(219,0,99,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Layout ───────────────────────────────────────────── */
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+      position: relative;
+      z-index: 1;
+    }
+
+    section { position: relative; z-index: 1; }
+
+    /* ── Typography ───────────────────────────────────────── */
+    .eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--crimson);
+    }
+
+    .eyebrow-pill {
+      background: rgba(219,0,99,0.10);
+      border: 1px solid rgba(219,0,99,0.30);
+      border-radius: 999px;
+      padding: 6px 14px;
+    }
+
+    h1 {
+      font-family: var(--font);
+      font-size: clamp(34px, 5.5vw, 56px);
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    h2 {
+      font-family: var(--font);
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    h3 {
+      font-family: var(--font);
+      font-size: 22px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 12px;
+    }
+
+    .crimson-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--crimson);
+      margin: 18px 0 28px;
+    }
+
+    /* ── Callout / Quote block ────────────────────────────── */
+    .callout {
+      border-left: 4px solid var(--crimson);
+      background: var(--dark-3);
+      padding: 18px 22px;
+      border-radius: 0 4px 4px 0;
+      font-size: 14px;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--off-white);
+      line-height: 1.75;
+    }
+
+    /* ── Card ─────────────────────────────────────────────── */
+    .card {
+      background: var(--dark-2);
+      border: 1px solid var(--dark-4);
+      border-radius: 4px;
+    }
+
+    .card-accent {
+      border-left: 4px solid var(--crimson);
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* ── Button ───────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: var(--font);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--crimson);
+      color: #fff;
+      padding: 16px 28px;
+      font-size: 14px;
+      min-height: 52px;
+    }
+
+    .btn-primary:hover { background: var(--crimson-dark); }
+
+    .btn-primary-lg {
+      padding: 18px 36px;
+      font-size: 15px;
+      min-height: 58px;
+      width: 100%;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--crimson);
+      border: 1px solid var(--crimson);
+      padding: 14px 24px;
+      font-size: 13px;
+      min-height: 48px;
+    }
+
+    .btn-secondary:hover { background: var(--crimson-tint); }
+
+    /* ── Form fields ──────────────────────────────────────── */
+    .field-group { display: flex; flex-direction: column; gap: 5px; }
+
+    .field-group label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .field-group input,
+    .field-group select {
+      font-family: var(--font);
+      font-size: 14px;
+      background: var(--dark-3);
+      border: 1px solid var(--dark-4);
+      border-radius: 4px;
+      color: var(--white);
+      padding: 12px 14px;
+      width: 100%;
+      transition: border-color 0.15s ease;
+      outline: none;
+    }
+
+    .field-group input:focus,
+    .field-group select:focus {
+      border-color: var(--crimson);
+    }
+
+    .field-group input::placeholder { color: var(--grey); }
+
+    .field-error {
+      font-size: 11px;
+      color: #ef4444;
+      font-weight: 600;
+    }
+
+    /* ── Header ───────────────────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(17,17,17,0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--dark-4);
+    }
+
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    .site-header .logo { height: 30px; display: block; }
+
+    .header-cta {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      text-decoration: none;
+      border: 1px solid var(--crimson-line);
+      padding: 8px 16px;
+      border-radius: 2px;
+      transition: background 0.15s ease;
+    }
+
+    .header-cta:hover { background: var(--crimson-tint); }
+
+    /* ── Hero ─────────────────────────────────────────────── */
+    .hero {
+      padding: 72px 0 68px;
+      border-bottom: 1px solid var(--dark-4);
+      text-align: center;
+    }
+
+    .hero h1 { max-width: 900px; margin: 0 auto; }
+
+    .hero .sub {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--light-grey);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    .hero-accent {
+      color: var(--crimson);
+      font-style: normal;
+    }
+
+    /* ── Stats row ────────────────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--dark-4);
+      border: 1px solid var(--dark-4);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .stat-cell {
+      background: var(--dark-2);
+      padding: 20px 18px;
+    }
+
+    .stat-cell.highlight {
+      border-top: 3px solid var(--crimson);
+    }
+
+    .stat-cell .stat-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .stat-cell.highlight .stat-label { color: var(--crimson); }
+    .stat-cell .stat-label { color: var(--muted); }
+
+    .stat-cell .stat-value {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+
+    .stat-cell .stat-sub {
+      font-size: 11px;
+      color: var(--light-grey);
+      margin-top: 3px;
+    }
+
+    /* ── Two-column content + form ────────────────────────── */
+    .reg-layout {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* ── Checklist ────────────────────────────────────────── */
+    .checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .checklist li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .check-dot {
+      flex-shrink: 0;
+      margin-top: 5px;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--crimson);
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .check-dot-inner {
+      width: 8px;
+      height: 8px;
+      background: var(--crimson);
+      border-radius: 999px;
+    }
+
+    .checklist li span {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--off-white);
+    }
+
+    /* ── Registration card ────────────────────────────────── */
+    .reg-card {
+      background: var(--dark-2);
+      border: 1px solid var(--dark-4);
+      border-top: 3px solid var(--crimson);
+      border-radius: 4px;
+      padding: 28px 26px;
+      position: sticky;
+      top: 88px;
+    }
+
+    .reg-card .reg-meta {
+      font-size: 13px;
+      color: var(--light-grey);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .reg-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .reg-disclaimer {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ── Testimonials ─────────────────────────────────────── */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .testimonial-card {
+      background: var(--dark-2);
+      border: 1px solid var(--dark-4);
+      border-radius: 4px;
+      padding: 24px 26px;
+    }
+
+    .testimonial-card .big-quote {
+      font-size: 40px;
+      line-height: 0.8;
+      font-weight: 900;
+      color: var(--crimson);
+      margin-bottom: 8px;
+    }
+
+    .testimonial-card .quote-text {
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--off-white);
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--dark-4);
+      margin-bottom: 14px;
+    }
+
+    .testimonial-card .client-name {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .testimonial-card .client-role {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── Closing CTA banner ───────────────────────────────── */
+    .closing-banner {
+      background: var(--dark-3);
+      border-top: 1px solid var(--dark-4);
+      border-bottom: 1px solid var(--dark-4);
+      padding: 64px 0;
+      text-align: center;
+    }
+
+    /* ── Footer ───────────────────────────────────────────── */
+    .site-footer {
+      padding: 52px 0 36px;
+      border-top: 1px solid var(--dark-4);
+      text-align: center;
+    }
+
+    .site-footer .footer-logo { height: 30px; opacity: 0.8; margin-bottom: 16px; }
+
+    .site-footer .footer-tagline {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 8px;
+    }
+
+    .site-footer .footer-copy {
+      font-size: 11px;
+      color: var(--dark-4);
+      letter-spacing: 0.06em;
+    }
+
+    .site-footer .footer-links {
+      margin-top: 16px;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .site-footer .footer-links a {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .site-footer .footer-links a:hover { color: var(--crimson); }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .reg-layout { grid-template-columns: 1fr; gap: 32px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .reg-card { position: static; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════
+    HEADER
+  ══════════════════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="container">
+
+      <!-- EDIT: swap src for your logo path. Keep height: 30px -->
+      <a href="#register">
+        <img src="../assets/logo-light.png" alt="Your Brand" class="logo" />
+      </a>
+
+      <!-- EDIT: update the anchor text and href to match your CTA -->
+      <a href="#register" class="header-cta">Reserve My Spot &rarr;</a>
+
+    </div>
+  </header>
+
+
+  <!-- ══════════════════════════════════════════════════════
+    HERO
+  ══════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="container">
+
+      <!-- EDIT: eyebrow pill — format / duration / price of your event -->
+      <div class="eyebrow eyebrow-pill" style="margin-bottom: 28px;">
+        Free &middot; Live &middot; 60 Min
+      </div>
+
+      <!-- EDIT: main headline — uppercase, punchy, result-focused.
+           Wrap the key outcome word/phrase in <em class="hero-accent"> -->
+      <h1 style="margin-bottom: 20px;">
+        How I generate a
+        <em class="hero-accent">$100K day</em><br/>
+        from a single virtual event — every 28 days
+      </h1>
+
+      <!-- EDIT: sub copy — 1–2 sentences. Lead with the reader's pain, end with your promise. -->
+      <p class="sub" style="margin-bottom: 32px;">
+        I spent years grinding one-to-one sales calls and wondering why growth felt impossible.
+        This masterclass reveals the exact system I use to fill virtual events that sell while I sleep.
+      </p>
+
+      <!-- EDIT: pull quote — your most dramatic, specific result moment -->
+      <div class="callout" style="display: inline-block; max-width: 580px; text-align: left; margin-bottom: 36px;">
+        "$1,002 in ads. 27 people in the room.
+        $317,000 closed in 2.5 hours. That wasn't luck — it was the model."
+      </div>
+
+      <!-- CTA button -->
+      <div>
+        <a href="#register" class="btn btn-primary" style="font-size: 15px; padding: 18px 40px; min-height: 58px;">
+          Reserve My Free Spot &rarr;
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════
+    STATS ROW
+  ══════════════════════════════════════════════════════ -->
+  <section style="padding: 56px 0; border-bottom: 1px solid var(--dark-4);">
+    <div class="container">
+
+      <div class="section-label" style="margin-bottom: 20px;">Receipts &middot; Real Numbers</div>
+
+      <!-- EDIT: replace with YOUR real, specific numbers. Never vague. -->
+      <div class="stats-grid">
+
+        <div class="stat-cell">
+          <div class="stat-label">Lifetime sales</div>
+          <div class="stat-value">$24.6M</div>
+          <div class="stat-sub">High-ticket revenue</div>
+        </div>
+
+        <div class="stat-cell highlight">
+          <div class="stat-label">Best single event</div>
+          <div class="stat-value">$317,000</div>
+          <div class="stat-sub">From $1,002 in ad spend</div>
+        </div>
+
+        <div class="stat-cell">
+          <div class="stat-label">Events run</div>
+          <div class="stat-value">226</div>
+          <div class="stat-sub">Personally delivered</div>
+        </div>
+
+        <div class="stat-cell">
+          <div class="stat-label">Conversion rate</div>
+          <div class="stat-value">11.5&times;</div>
+          <div class="stat-sub">vs one-to-one sales</div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════
+    WHAT YOU'LL DISCOVER + REGISTRATION FORM
+  ══════════════════════════════════════════════════════ -->
+  <section id="register" style="padding: 72px 0; border-bottom: 1px solid var(--dark-4);">
+    <div class="container">
+      <div class="reg-layout">
+
+        <!-- LEFT COL: content -->
+        <div>
+          <div class="section-label">In This Masterclass, You'll Discover</div>
+          <h2 style="margin-bottom: 8px;">
+            The exact system behind a <em style="color: var(--crimson); font-style: normal;">$100K day</em>
+          </h2>
+          <div class="crimson-divider"></div>
+
+          <!-- EDIT: sub paragraph — be specific about who this is for -->
+          <p style="color: var(--light-grey); margin-bottom: 32px; font-size: 15px; line-height: 1.75;">
+            This is for coaches, consultants, and experts charging $3K+ who are done
+            trading time for money and ready to install a one-to-many event model that
+            runs without them every 28 days.
+          </p>
+
+          <!-- EDIT: checklist — 4–6 specific outcomes. Start each with an action phrase. -->
+          <ul class="checklist">
+
+            <li>
+              <div class="check-dot"><div class="check-dot-inner"></div></div>
+              <span>Why most coaches run virtual events backwards — and the structural fix that changes everything overnight</span>
+            </li>
+
+            <li>
+              <div class="check-dot"><div class="check-dot-inner"></div></div>
+              <span>The Cash Flow Engine framework — how to turn registrations into real revenue before a single person shows up</span>
+            </li>
+
+            <li>
+              <div class="check-dot"><div class="check-dot-inner"></div></div>
+              <span>How I use AI to build the full funnel live — in real time, from scratch, on the call</span>
+            </li>
+
+            <li>
+              <div class="check-dot"><div class="check-dot-inner"></div></div>
+              <span>The self-liquidating ad model — where your ad spend pays for itself before you say a word from stage</span>
+            </li>
+
+            <li>
+              <div class="check-dot"><div class="check-dot-inner"></div></div>
+              <span>The 3-phase formula — 9 unique ingredients that work as one machine to generate repeatable $100K days</span>
+            </li>
+
+          </ul>
+
+          <!-- Secondary callout below checklist -->
+          <div class="callout" style="margin-top: 36px;">
+            "People who pay... pay attention. This masterclass is free because I want to
+            prove the model works before you spend a cent with me."
+          </div>
+
+        </div>
+
+        <!-- RIGHT COL: registration card -->
+        <div>
+          <div class="reg-card">
+
+            <div class="eyebrow" style="margin-bottom: 6px;">Reserve Your Spot</div>
+
+            <!-- EDIT: event title + format -->
+            <h3 style="margin-bottom: 10px;">Free &middot; Live &middot; 60 Minutes</h3>
+
+            <!-- EDIT: next session date/time -->
+            <p class="reg-meta">
+              Next session: <strong style="color: var(--white);">Thursday &middot; 11:00am AEST</strong>.
+              Strictly limited to live attendees.
+            </p>
+
+            <!-- Registration form — wire up to your email platform (ConvertKit, ActiveCampaign, GoHighLevel etc.) -->
+            <!-- EDIT: action URL for your email provider -->
+            <form class="reg-form" action="#" method="POST" onsubmit="handleReg(event)">
+
+              <!-- EDIT: add or remove fields as needed -->
+              <div class="field-group">
+                <label for="first-name">First name</label>
+                <input id="first-name" name="first_name" type="text" placeholder="Matthew" required />
+              </div>
+
+              <div class="field-group">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" placeholder="you@youremail.com" required />
+              </div>
+
+              <!-- Optional: phone field. Remove if not collecting phone. -->
+              <div class="field-group">
+                <label for="phone">Phone (optional — for SMS reminders)</label>
+                <input id="phone" name="phone" type="tel" placeholder="+61 400 000 000" />
+              </div>
+
+              <!-- EDIT: CTA label — use action-oriented language -->
+              <button type="submit" class="btn btn-primary btn-primary-lg">
+                Yes, Reserve My Spot &rarr;
+              </button>
+
+              <div class="reg-disclaimer">
+                No card required &nbsp;&middot;&nbsp; We never share your info
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════
+    TESTIMONIALS
+  ══════════════════════════════════════════════════════ -->
+  <section style="padding: 72px 0; border-bottom: 1px solid var(--dark-4);">
+    <div class="container">
+
+      <div class="section-label">Client Proof</div>
+      <h2 style="margin-bottom: 4px;">These aren't outliers.</h2>
+      <h2><em class="hero-accent">They're the system, running.</em></h2>
+      <div class="crimson-divider"></div>
+
+      <!-- EDIT: replace with 2–4 real client testimonials. Always include NAME + ROLE. -->
+      <div class="testimonial-grid">
+
+        <div class="testimonial-card">
+          <div class="big-quote">"</div>
+          <p class="quote-text">
+            $25K in 8 weeks — and I was still validating the offer. I hadn't even
+            finished building it when the money landed.
+          </p>
+          <div class="client-name">Guy Bouchard</div>
+          <div class="client-role">Real estate &middot; Multifamily apartments</div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="big-quote">"</div>
+          <p class="quote-text">
+            $28,000 closed in 7 weeks. We're now projecting $680K by the end of the year
+            based on just two events run with this exact framework.
+          </p>
+          <div class="client-name">Vincent Holthouse</div>
+          <div class="client-role">Real estate &middot; Cashflow properties</div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="big-quote">"</div>
+          <p class="quote-text">
+            $50K closed in 3 months — from a single research call and one virtual event.
+            I hadn't run a webinar in my life before this.
+          </p>
+          <div class="client-name">Angie Roars</div>
+          <div class="client-role">Helps people stand out from the crowd</div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="big-quote">"</div>
+          <p class="quote-text">
+            $75K from 10 people in the room. Then $144K in upsells from the same group.
+            One event. Same formula every time.
+          </p>
+          <div class="client-name">Melanie Warner</div>
+          <div class="client-role">Helps people make money from books</div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════
+    CLOSING CTA BANNER
+  ══════════════════════════════════════════════════════ -->
+  <section class="closing-banner">
+    <div class="container" style="max-width: 680px;">
+
+      <!-- EDIT: closing eyebrow -->
+      <div class="eyebrow eyebrow-pill" style="margin-bottom: 22px;">Spots are limited</div>
+
+      <!-- EDIT: closing headline — create urgency without being fake -->
+      <h2 style="margin-bottom: 16px;">
+        The model is free to learn.<br/>
+        The seat isn't guaranteed.
+      </h2>
+
+      <!-- EDIT: closing sub copy -->
+      <p style="color: var(--light-grey); font-size: 16px; margin-bottom: 32px; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.7;">
+        I run these live and I cap the room. Once it's full, the registration closes.
+        Reserve now and get the replay link emailed whether you attend live or not.
+      </p>
+
+      <a href="#register" class="btn btn-primary" style="font-size: 15px; padding: 18px 44px; min-height: 58px;">
+        Reserve My Free Spot &rarr;
+      </a>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════
+    FOOTER
+  ══════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <!-- EDIT: swap for your logo -->
+      <img src="../assets/logo-light.png" alt="Your Brand" class="footer-logo" />
+
+      <!-- EDIT: your brand tagline / method name -->
+      <div class="footer-tagline">Your Brand &middot; Your Method Name</div>
+
+      <!-- EDIT: copyright year and brand name -->
+      <div class="footer-copy">&copy; 2025 Your Brand. All rights reserved.</div>
+
+      <!-- EDIT: add or remove footer links. Link to real pages. -->
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ══════════════════════════════════════════════════════
+    FORM HANDLER (demo — replace with your ESP integration)
+  ══════════════════════════════════════════════════════ -->
+  <script>
+    function handleReg(e) {
+      e.preventDefault();
+      // EDIT: replace this with your actual form submission logic.
+      // Options:
+      //   - ConvertKit: use their embed form JS
+      //   - GoHighLevel: use GHL's form embed or webhook
+      //   - ActiveCampaign: use their form action URL
+      //   - Zapier: POST to a Zap webhook
+      //   - Redirect to thank-you page: window.location.href = '/thank-you';
+      alert('Form submitted! Replace this with your email platform integration.');
+    }
+  </script>
+
+
+  <!--
+  ================================================================
+  VIBE CODING PROMPT — Template 01: Masterclass Opt-In Page
+  ================================================================
+
+  Copy everything below the dashes and paste it into Claude, ChatGPT,
+  or your AI coding tool of choice. Fill in the [BRACKETS] with your
+  specific details and it will regenerate this page with your content.
+
+  ──────────────────────────────────────────────────────────────────
+
+  Create a single-file HTML landing page for a free live masterclass
+  opt-in / registration page. Use this exact visual style:
+
+  DESIGN RULES (do not deviate):
+  - Dark background (#111111) with a subtle crimson grid texture
+    (40px grid, rgba(219,0,99,0.03) opacity)
+  - Only font: Montserrat from Google Fonts (400, 500, 700, 900)
+  - Only accent color: crimson #db0063 (hover: #a8004b)
+  - All headlines: uppercase, font-weight 900, letter-spacing -0.02em
+  - Card surfaces: #1a1a1a with 1px solid #2b2b2b borders, 4px radius max
+  - Buttons: crimson fill, white text, font-weight 900, 2px radius, no shadows
+  - No gradients except subtle crimson glow effects
+  - No emoji anywhere on the page
+  - Numbers must always be specific and real — never vague
+
+  PAGE STRUCTURE (in this order):
+  1. Sticky header — logo on left, "Reserve My Spot →" link on right
+  2. Hero — eyebrow pill, h1 headline, sub copy, pull quote block, CTA button
+  3. Stats row — 4 real numbers in a grid (one highlighted with crimson top border)
+  4. Two-column section: left = checklist of 5 outcomes; right = sticky registration card
+  5. Testimonials — 2×2 grid of client cards (quote + name + role)
+  6. Closing CTA banner — urgency headline + repeat CTA
+  7. Footer — logo, tagline, copyright, privacy/terms links
+
+  CONTENT TO INSERT:
+  - Brand/business name: [YOUR BRAND NAME]
+  - Event name: [YOUR MASTERCLASS TITLE]
+  - Event format + duration: [e.g., Free · Live · 90 Min]
+  - Next session date/time: [e.g., Thursday · 7pm EST]
+  - Headline: [YOUR MAIN HEADLINE — lead with the outcome]
+  - Sub copy (2–3 sentences): [YOUR SUB COPY — start with the reader's pain]
+  - Pull quote (your most dramatic result): [e.g., "$X from Y people in Z hours"]
+  - Stat 1 label + value + sub: [e.g., Lifetime revenue / $5.2M / Consulting clients]
+  - Stat 2 label + value + sub (highlight): [e.g., Best single event / $187K / 22 attendees]
+  - Stat 3 label + value + sub: [e.g., Events run / 48 / Personally delivered]
+  - Stat 4 label + value + sub: [e.g., Close rate / 3.2× / vs industry average]
+  - Checklist item 1: [specific outcome]
+  - Checklist item 2: [specific outcome]
+  - Checklist item 3: [specific outcome]
+  - Checklist item 4: [specific outcome]
+  - Checklist item 5: [specific outcome]
+  - Form fields: [First name, Email, Phone (optional) — or customise]
+  - CTA button text: [e.g., "Yes, Reserve My Spot →"]
+  - Testimonial 1: quote / name / role
+  - Testimonial 2: quote / name / role
+  - Testimonial 3: quote / name / role
+  - Testimonial 4: quote / name / role
+  - Closing urgency copy: [1–2 sentences]
+  - Footer tagline: [Your brand sub-name or method name]
+  - Copyright line: [Year + brand name]
+
+  OUTPUT: One complete HTML file, no external CSS files, no frameworks.
+  Include a <script> tag at the bottom with a placeholder form handler
+  comment explaining how to wire it to ConvertKit / GoHighLevel / Zapier.
+
+  ================================================================
+  END VIBE CODING PROMPT
+  ================================================================
+  -->
+
+</body>
+</html>
