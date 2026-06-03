@@ -5,770 +5,695 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ============================================================
-    TEMPLATE 01 — MASTERCLASS OPT-IN / REGISTRATION PAGE
-    Coach Launch Design System · Dark · Crimson · Montserrat
+    TEMPLATE 01 — MASTERCLASS / LIVE EVENT REGISTRATION PAGE
+    Structure based on: coachlaunch.com/cashflow-engine-a
 
-    HOW TO USE THIS TEMPLATE:
-    Search for every "<!-- EDIT:" comment below and swap in your
-    own content. The page works as-is with placeholder copy.
+    HOW TO CUSTOMISE:
+    1. Change --accent color (line ~60) to your brand color
+    2. Search "EDIT:" to find every placeholder in order
+    3. Replace [PLACEHOLDER] text with your own content
+    4. Swap placeholder images for real ones
+    5. Wire the forms to GoHighLevel / ConvertKit / ActiveCampaign
 
-    SECTIONS TO CUSTOMISE:
-    1. <title> and meta description
-    2. Logo path (or swap for your own)
-    3. Eyebrow pill text
-    4. Hero headline + sub copy
-    5. Quote callout
-    6. Checklist bullets ("What you'll discover")
-    7. Stats row (use REAL numbers only — never vague claims)
-    8. Testimonials
-    9. Registration form fields + CTA label
-    10. Footer brand name + links
+    VIBE CODING PROMPT: see bottom of file
   ============================================================ -->
 
-  <!-- EDIT: page title and description -->
-  <title>Free Live Masterclass — [Your Event Name]</title>
-  <meta name="description" content="[One-sentence description of what attendees will learn. Be specific.]" />
+  <!-- EDIT: page title -->
+  <title>[Your Event Name] — Free Live Masterclass</title>
+  <meta name="description" content="[One sentence describing what attendees will learn and who it's for.]" />
 
-  <!-- Montserrat from Google Fonts — no install needed -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
-    /* ── Design Tokens ────────────────────────────────────── */
+    /* ─────────────────────────────────────────────────────────
+       BRAND VARIABLES — Edit these to match your client's brand
+       ───────────────────────────────────────────────────────── */
     :root {
-      --crimson:        #db0063;
-      --crimson-dark:   #a8004b;
-      --crimson-glow:   rgba(219, 0, 99, 0.18);
-      --crimson-tint:   rgba(219, 0, 99, 0.10);
-      --crimson-line:   rgba(219, 0, 99, 0.30);
+      --accent:         #e8003d;   /* CHANGE: main brand/button color */
+      --accent-dark:    #b5002f;   /* CHANGE: darker shade for hover  */
+      --accent-light:   rgba(232, 0, 61, 0.08);
+      --accent-border:  rgba(232, 0, 61, 0.25);
 
-      --dark:           #111111;
-      --dark-2:         #1a1a1a;
-      --dark-3:         #222222;
-      --dark-4:         #2b2b2b;
-      --dark-5:         #1f1f1f;
+      --text:           #1a1a1a;
+      --text-muted:     #555555;
+      --text-light:     #888888;
+      --bg:             #ffffff;
+      --bg-alt:         #f7f8fa;
+      --bg-dark:        #1a1a1a;
+      --border:         #e5e5e5;
+      --border-dark:    #d0d0d0;
 
-      --white:          #ffffff;
-      --off-white:      #f0f0f0;
-      --light-grey:     #cccccc;
-      --muted:          #888888;
-      --grey:           #555555;
-
-      --font:           'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-      --container:      960px;
-      --gutter:         24px;
+      --font:           'Inter', system-ui, -apple-system, sans-serif;
+      --container:      900px;
+      --radius:         8px;
+      --radius-lg:      12px;
     }
 
-    /* ── Reset ────────────────────────────────────────────── */
+    /* ─── Reset ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
       font-family: var(--font);
-      background: var(--dark);
-      color: var(--white);
-      font-size: 15px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
-      position: relative;
     }
+    img { max-width: 100%; display: block; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    /* Signature crimson grid texture */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(219,0,99,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(219,0,99,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── Layout ───────────────────────────────────────────── */
+    /* ─── Layout ─────────────────────────────────────────────── */
     .container {
       max-width: var(--container);
       margin: 0 auto;
-      padding: 0 var(--gutter);
-      position: relative;
-      z-index: 1;
+      padding: 0 20px;
     }
+    .section { padding: 60px 0; }
+    .section-alt { background: var(--bg-alt); }
+    .section-dark { background: var(--bg-dark); color: #fff; }
+    .text-center { text-align: center; }
+    .text-accent { color: var(--accent); }
 
-    section { position: relative; z-index: 1; }
-
-    /* ── Typography ───────────────────────────────────────── */
+    /* ─── Typography ─────────────────────────────────────────── */
+    h1 { font-size: clamp(28px, 4.5vw, 46px); font-weight: 900; line-height: 1.12; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(24px, 3.5vw, 36px); font-weight: 800; line-height: 1.18; letter-spacing: -0.01em; }
+    h3 { font-size: clamp(20px, 2.5vw, 26px); font-weight: 700; line-height: 1.3; }
+    h4 { font-size: 18px; font-weight: 700; }
+    p  { color: var(--text-muted); line-height: 1.75; }
+    .lead { font-size: 18px; font-weight: 500; color: var(--text); line-height: 1.65; }
     .eyebrow {
       display: inline-block;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--crimson);
-    }
-
-    .eyebrow-pill {
-      background: rgba(219,0,99,0.10);
-      border: 1px solid rgba(219,0,99,0.30);
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid var(--accent-border);
       border-radius: 999px;
-      padding: 6px 14px;
+      padding: 5px 14px;
     }
-
-    h1 {
-      font-family: var(--font);
-      font-size: clamp(34px, 5.5vw, 56px);
-      font-weight: 900;
-      line-height: 1.06;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    h2 {
-      font-family: var(--font);
-      font-size: clamp(24px, 3.5vw, 36px);
-      font-weight: 900;
-      line-height: 1.12;
-      letter-spacing: -0.01em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    h3 {
-      font-family: var(--font);
-      font-size: 22px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .section-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--grey);
-      margin-bottom: 12px;
-    }
-
-    .crimson-divider {
+    .section-divider {
       width: 48px;
-      height: 3px;
-      background: var(--crimson);
-      margin: 18px 0 28px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 16px 0 24px;
     }
+    .section-divider.centered { margin: 16px auto 24px; }
 
-    /* ── Callout / Quote block ────────────────────────────── */
-    .callout {
-      border-left: 4px solid var(--crimson);
-      background: var(--dark-3);
-      padding: 18px 22px;
-      border-radius: 0 4px 4px 0;
-      font-size: 14px;
-      font-style: italic;
-      font-weight: 500;
-      color: var(--off-white);
-      line-height: 1.75;
-    }
-
-    /* ── Card ─────────────────────────────────────────────── */
-    .card {
-      background: var(--dark-2);
-      border: 1px solid var(--dark-4);
-      border-radius: 4px;
-    }
-
-    .card-accent {
-      border-left: 4px solid var(--crimson);
-      border-radius: 0 4px 4px 0;
-    }
-
-    /* ── Button ───────────────────────────────────────────── */
+    /* ─── Buttons ─────────────────────────────────────────────── */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       font-family: var(--font);
-      font-weight: 900;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       border: none;
-      border-radius: 2px;
+      border-radius: var(--radius);
       cursor: pointer;
-      transition: background 0.15s ease;
+      transition: background 0.15s ease, transform 0.1s ease;
       text-decoration: none;
+      line-height: 1;
     }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
 
     .btn-primary {
-      background: var(--crimson);
+      background: var(--accent);
       color: #fff;
-      padding: 16px 28px;
-      font-size: 14px;
-      min-height: 52px;
+      padding: 18px 36px;
+      font-size: 17px;
+      min-height: 58px;
     }
-
-    .btn-primary:hover { background: var(--crimson-dark); }
+    .btn-primary:hover { background: var(--accent-dark); }
 
     .btn-primary-lg {
-      padding: 18px 36px;
-      font-size: 15px;
-      min-height: 58px;
+      padding: 20px 44px;
+      font-size: 19px;
+      min-height: 64px;
       width: 100%;
+      max-width: 480px;
     }
 
-    .btn-secondary {
+    .btn-outline {
       background: transparent;
-      color: var(--crimson);
-      border: 1px solid var(--crimson);
-      padding: 14px 24px;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      padding: 14px 28px;
+      font-size: 15px;
+    }
+    .btn-outline:hover { background: var(--accent-light); }
+
+    /* ─── Form ───────────────────────────────────────────────── */
+    .form-stack { display: flex; flex-direction: column; gap: 12px; }
+
+    .field label {
+      display: block;
       font-size: 13px;
-      min-height: 48px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 5px;
     }
-
-    .btn-secondary:hover { background: var(--crimson-tint); }
-
-    /* ── Form fields ──────────────────────────────────────── */
-    .field-group { display: flex; flex-direction: column; gap: 5px; }
-
-    .field-group label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .field-group input,
-    .field-group select {
-      font-family: var(--font);
-      font-size: 14px;
-      background: var(--dark-3);
-      border: 1px solid var(--dark-4);
-      border-radius: 4px;
-      color: var(--white);
-      padding: 12px 14px;
+    .field input,
+    .field select {
       width: 100%;
-      transition: border-color 0.15s ease;
+      font-family: var(--font);
+      font-size: 15px;
+      background: var(--bg);
+      border: 1.5px solid var(--border-dark);
+      border-radius: var(--radius);
+      color: var(--text);
+      padding: 13px 16px;
+      transition: border-color 0.15s;
       outline: none;
     }
+    .field input:focus,
+    .field select:focus { border-color: var(--accent); }
+    .field input::placeholder { color: #aaa; }
 
-    .field-group input:focus,
-    .field-group select:focus {
-      border-color: var(--crimson);
-    }
-
-    .field-group input::placeholder { color: var(--grey); }
-
-    .field-error {
-      font-size: 11px;
-      color: #ef4444;
-      font-weight: 600;
-    }
-
-    /* ── Header ───────────────────────────────────────────── */
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(17,17,17,0.94);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--dark-4);
-    }
-
-    .site-header .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 68px;
-    }
-
-    .site-header .logo { height: 30px; display: block; }
-
-    .header-cta {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--crimson);
-      text-decoration: none;
-      border: 1px solid var(--crimson-line);
-      padding: 8px 16px;
-      border-radius: 2px;
-      transition: background 0.15s ease;
-    }
-
-    .header-cta:hover { background: var(--crimson-tint); }
-
-    /* ── Hero ─────────────────────────────────────────────── */
-    .hero {
-      padding: 72px 0 68px;
-      border-bottom: 1px solid var(--dark-4);
+    .form-note {
+      font-size: 12px;
+      color: var(--text-light);
       text-align: center;
+      line-height: 1.5;
     }
 
-    .hero h1 { max-width: 900px; margin: 0 auto; }
-
-    .hero .sub {
-      font-size: 17px;
-      font-weight: 500;
-      color: var(--light-grey);
-      max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.65;
+    /* ─── Cards ──────────────────────────────────────────────── */
+    .card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+    }
+    .card-raised {
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px 28px;
     }
 
-    .hero-accent {
-      color: var(--crimson);
-      font-style: normal;
+    /* ─── Registration box (used in hero + closing) ──────────── */
+    .reg-box {
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+    }
+    .reg-box-title {
+      font-size: 22px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+    .reg-box-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 22px;
     }
 
-    /* ── Stats row ────────────────────────────────────────── */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--dark-4);
-      border: 1px solid var(--dark-4);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .stat-cell {
-      background: var(--dark-2);
-      padding: 20px 18px;
-    }
-
-    .stat-cell.highlight {
-      border-top: 3px solid var(--crimson);
-    }
-
-    .stat-cell .stat-label {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .stat-cell.highlight .stat-label { color: var(--crimson); }
-    .stat-cell .stat-label { color: var(--muted); }
-
-    .stat-cell .stat-value {
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      color: var(--white);
-    }
-
-    .stat-cell .stat-sub {
-      font-size: 11px;
-      color: var(--light-grey);
-      margin-top: 3px;
-    }
-
-    /* ── Two-column content + form ────────────────────────── */
-    .reg-layout {
-      display: grid;
-      grid-template-columns: 1.25fr 1fr;
-      gap: 56px;
-      align-items: start;
-    }
-
-    /* ── Checklist ────────────────────────────────────────── */
-    .checklist {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .checklist li {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-    }
-
-    .check-dot {
-      flex-shrink: 0;
-      margin-top: 5px;
-      width: 18px;
-      height: 18px;
-      border: 1.5px solid var(--crimson);
-      border-radius: 999px;
-      display: flex;
+    /* ─── Date badge ─────────────────────────────────────────── */
+    .date-badge {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
     }
-
-    .check-dot-inner {
+    .date-badge .dot {
       width: 8px;
       height: 8px;
-      background: var(--crimson);
-      border-radius: 999px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
     }
 
-    .checklist li span {
-      font-size: 14px;
-      line-height: 1.7;
-      color: var(--off-white);
-    }
-
-    /* ── Registration card ────────────────────────────────── */
-    .reg-card {
-      background: var(--dark-2);
-      border: 1px solid var(--dark-4);
-      border-top: 3px solid var(--crimson);
-      border-radius: 4px;
-      padding: 28px 26px;
-      position: sticky;
-      top: 88px;
-    }
-
-    .reg-card .reg-meta {
-      font-size: 13px;
-      color: var(--light-grey);
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-
-    .reg-form {
+    /* ─── Checklist ──────────────────────────────────────────── */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .checklist li {
       display: flex;
-      flex-direction: column;
-      gap: 14px;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.65;
     }
-
-    .reg-disclaimer {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-align: center;
+    .check-icon {
+      flex-shrink: 0;
+      margin-top: 3px;
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+    .check-icon svg { width: 11px; height: 11px; }
 
-    /* ── Testimonials ─────────────────────────────────────── */
-    .testimonial-grid {
+    /* ─── Before/After ───────────────────────────────────────── */
+    .before-after {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .before-col {
+      background: #fff5f5;
+      border: 1px solid #fccaca;
+      border-top: 4px solid #ef4444;
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+    }
+    .after-col {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-top: 4px solid #22c55e;
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+    }
+    .before-col h3, .after-col h3 { font-size: 18px; margin-bottom: 16px; }
+    .before-col h3 { color: #b91c1c; }
+    .after-col h3 { color: #15803d; }
+    .ba-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .ba-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.6; color: var(--text-muted); }
+    .ba-icon { flex-shrink: 0; margin-top: 3px; font-size: 14px; }
+
+    /* ─── Stats ──────────────────────────────────────────────── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .stat-cell {
+      background: var(--bg);
+      padding: 28px 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 36px; font-weight: 900; color: var(--accent); letter-spacing: -0.02em; }
+    .stat-label { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* ─── Value grid (3-column) ──────────────────────────────── */
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .value-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 28px 22px;
+      text-align: center;
+    }
+    .value-card .value-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 22px;
+    }
+    .value-card h4 { font-size: 16px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .value-card p { font-size: 13px; line-height: 1.65; }
+
+    /* ─── Testimonials ───────────────────────────────────────── */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
-
     .testimonial-card {
-      background: var(--dark-2);
-      border: 1px solid var(--dark-4);
-      border-radius: 4px;
-      padding: 24px 26px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
     }
-
-    .testimonial-card .big-quote {
-      font-size: 40px;
-      line-height: 0.8;
-      font-weight: 900;
-      color: var(--crimson);
-      margin-bottom: 8px;
+    .t-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--bg-alt);
+      border: 2px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 12px;
+      flex-shrink: 0;
     }
+    .t-quote { font-size: 14px; font-style: italic; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
+    .t-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .t-role { font-size: 12px; color: var(--text-light); }
 
-    .testimonial-card .quote-text {
-      font-style: italic;
-      font-size: 14px;
+    /* Video embed placeholder */
+    .video-wrap {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .video-wrap .play-btn {
+      width: 64px;
+      height: 64px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .video-wrap .play-btn:hover { transform: scale(1.08); }
+    .video-wrap .play-btn svg { width: 22px; height: 22px; margin-left: 4px; }
+
+    /* ─── FAQ ────────────────────────────────────────────────── */
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    .faq-q .faq-arrow {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+    .faq-q.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a {
+      display: none;
+      padding: 0 22px 20px;
+      font-size: 15px;
+      color: var(--text-muted);
       line-height: 1.75;
-      color: var(--off-white);
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--dark-4);
-      margin-bottom: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+    .faq-a.open { display: block; }
+
+    /* ─── Host bio ───────────────────────────────────────────── */
+    .host-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .host-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .host-credentials { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+    .credential {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .credential .c-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
     }
 
-    .testimonial-card .client-name {
+    /* ─── Image placeholder ──────────────────────────────────── */
+    .img-placeholder {
+      background: var(--bg-alt);
+      border: 1px dashed var(--border-dark);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--text-light);
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .img-placeholder svg { opacity: 0.4; }
+
+    /* ─── Urgency bar ────────────────────────────────────────── */
+    .urgency-bar {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Header ─────────────────────────────────────────────── */
+    .site-header {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .site-header .inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-placeholder {
+      height: 44px;
+      width: 180px;
+      background: var(--bg-alt);
+      border: 1px dashed var(--border-dark);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      color: var(--text-light);
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--white);
     }
 
-    .testimonial-card .client-role {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    /* ── Closing CTA banner ───────────────────────────────── */
-    .closing-banner {
-      background: var(--dark-3);
-      border-top: 1px solid var(--dark-4);
-      border-bottom: 1px solid var(--dark-4);
-      padding: 64px 0;
-      text-align: center;
-    }
-
-    /* ── Footer ───────────────────────────────────────────── */
+    /* ─── Footer ─────────────────────────────────────────────── */
     .site-footer {
-      padding: 52px 0 36px;
-      border-top: 1px solid var(--dark-4);
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      padding: 36px 0 28px;
       text-align: center;
     }
+    .footer-nav { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
+    .footer-nav a { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+    .footer-disclaimer { font-size: 12px; color: var(--text-light); max-width: 680px; margin: 0 auto 12px; line-height: 1.6; }
+    .footer-copy { font-size: 12px; color: var(--text-light); }
 
-    .site-footer .footer-logo { height: 30px; opacity: 0.8; margin-bottom: 16px; }
-
-    .site-footer .footer-tagline {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--grey);
-      margin-bottom: 8px;
-    }
-
-    .site-footer .footer-copy {
-      font-size: 11px;
-      color: var(--dark-4);
-      letter-spacing: 0.06em;
-    }
-
-    .site-footer .footer-links {
-      margin-top: 16px;
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-    }
-
-    .site-footer .footer-links a {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.15s ease;
-    }
-
-    .site-footer .footer-links a:hover { color: var(--crimson); }
-
-    /* ── Responsive ───────────────────────────────────────── */
+    /* ─── Responsive ─────────────────────────────────────────── */
     @media (max-width: 768px) {
-      .reg-layout { grid-template-columns: 1fr; gap: 32px; }
-      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .before-after { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr; }
+      .value-grid { grid-template-columns: 1fr; }
       .testimonial-grid { grid-template-columns: 1fr; }
-      .reg-card { position: static; }
+      .host-layout { grid-template-columns: 1fr; }
+      .host-photo { aspect-ratio: 1; max-width: 220px; }
     }
-
-    @media (max-width: 480px) {
-      .stats-grid { grid-template-columns: 1fr; }
+    @media (max-width: 560px) {
+      h1 { font-size: 26px; }
+      h2 { font-size: 22px; }
+      .btn-primary-lg { font-size: 16px; padding: 16px 24px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════
+    URGENCY TOP BAR — remove if not needed
+  ══════════════════════════════════════════════ -->
+  <div class="urgency-bar">
+    <!-- EDIT: urgency message — date, limited spots, no replay etc. -->
+    Limited spots available &nbsp;·&nbsp; Thursday [DATE] at [TIME] &nbsp;·&nbsp; No replay offered
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
     HEADER
-  ══════════════════════════════════════════════════════ -->
+  ══════════════════════════════════════════════ -->
   <header class="site-header">
-    <div class="container">
-
-      <!-- EDIT: swap src for your logo path. Keep height: 30px -->
-      <a href="#register">
-        <img src="../assets/logo-light.png" alt="Your Brand" class="logo" />
-      </a>
-
-      <!-- EDIT: update the anchor text and href to match your CTA -->
-      <a href="#register" class="header-cta">Reserve My Spot &rarr;</a>
-
+    <div class="container inner">
+      <!-- EDIT: replace with <img src="your-logo.png" alt="Your Brand" style="height:44px;" /> -->
+      <div class="logo-placeholder">Your Logo Here</div>
     </div>
   </header>
 
 
-  <!-- ══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════
     HERO
-  ══════════════════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="container">
+  ══════════════════════════════════════════════ -->
+  <section style="padding: 64px 0 56px; background: var(--bg);">
+    <div class="container text-center">
 
-      <!-- EDIT: eyebrow pill — format / duration / price of your event -->
-      <div class="eyebrow eyebrow-pill" style="margin-bottom: 28px;">
-        Free &middot; Live &middot; 60 Min
-      </div>
+      <!-- EDIT: eyebrow label -->
+      <div class="eyebrow" style="margin-bottom: 22px;">Free Live Masterclass</div>
 
-      <!-- EDIT: main headline — uppercase, punchy, result-focused.
-           Wrap the key outcome word/phrase in <em class="hero-accent"> -->
-      <h1 style="margin-bottom: 20px;">
-        How I generate a
-        <em class="hero-accent">$100K day</em><br/>
-        from a single virtual event — every 28 days
+      <!-- EDIT: main headline — outcome-first, specific, punchy -->
+      <h1 style="max-width: 780px; margin: 0 auto 20px;">
+        Join the <span class="text-accent">[FREE] Live "[Your Method Name]"</span><br/>
+        Masterclass &amp; Discover How To<br/>
+        [Achieve Specific Result] Every [Timeframe]
       </h1>
 
-      <!-- EDIT: sub copy — 1–2 sentences. Lead with the reader's pain, end with your promise. -->
-      <p class="sub" style="margin-bottom: 32px;">
-        I spent years grinding one-to-one sales calls and wondering why growth felt impossible.
-        This masterclass reveals the exact system I use to fill virtual events that sell while I sleep.
+      <!-- EDIT: sub headline — who it's for + the big promise -->
+      <p class="lead" style="max-width: 640px; margin: 0 auto 32px;">
+        For [ideal client] who want to [achieve outcome] without [main objection/pain point] — even if [limiting belief].
       </p>
 
-      <!-- EDIT: pull quote — your most dramatic, specific result moment -->
-      <div class="callout" style="display: inline-block; max-width: 580px; text-align: left; margin-bottom: 36px;">
-        "$1,002 in ads. 27 people in the room.
-        $317,000 closed in 2.5 hours. That wasn't luck — it was the model."
+      <!-- EDIT: date and time -->
+      <div style="margin-bottom: 32px;">
+        <div class="date-badge">
+          <span class="dot"></span>
+          LIVE &nbsp;·&nbsp; [Day], [Month] [Date] &nbsp;·&nbsp; [Time] [Timezone]
+        </div>
       </div>
 
-      <!-- CTA button -->
-      <div>
-        <a href="#register" class="btn btn-primary" style="font-size: 15px; padding: 18px 40px; min-height: 58px;">
-          Reserve My Free Spot &rarr;
-        </a>
-      </div>
+      <!-- CTA — first instance -->
+      <!-- EDIT: button text + href (link to form below or external reg page) -->
+      <a href="#register" class="btn btn-primary" style="font-size: 18px; padding: 18px 44px; min-height: 60px;">
+        Join The FREE Masterclass &rarr;
+      </a>
+
+      <!-- Privacy note -->
+      <p style="font-size: 12px; color: var(--text-light); margin-top: 12px;">
+        Your information is 100% secure and will never be shared.
+      </p>
 
     </div>
   </section>
 
 
-  <!-- ══════════════════════════════════════════════════════
-    STATS ROW
-  ══════════════════════════════════════════════════════ -->
-  <section style="padding: 56px 0; border-bottom: 1px solid var(--dark-4);">
+  <!-- ══════════════════════════════════════════════
+    PRODUCT / FRAMEWORK IMAGE STRIP
+  ══════════════════════════════════════════════ -->
+  <section style="padding: 0 0 56px; background: var(--bg);">
     <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
 
-      <div class="section-label" style="margin-bottom: 20px;">Receipts &middot; Real Numbers</div>
-
-      <!-- EDIT: replace with YOUR real, specific numbers. Never vague. -->
-      <div class="stats-grid">
-
-        <div class="stat-cell">
-          <div class="stat-label">Lifetime sales</div>
-          <div class="stat-value">$24.6M</div>
-          <div class="stat-sub">High-ticket revenue</div>
+        <!-- EDIT: replace each with a real product/framework/mockup image -->
+        <div class="img-placeholder" style="height: 180px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12h6M12 9v6"/></svg>
+          <span>[Framework Image 1]</span>
+          <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);">AI Powered</span>
         </div>
 
-        <div class="stat-cell highlight">
-          <div class="stat-label">Best single event</div>
-          <div class="stat-value">$317,000</div>
-          <div class="stat-sub">From $1,002 in ad spend</div>
+        <div class="img-placeholder" style="height: 180px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12h6M12 9v6"/></svg>
+          <span>[Framework Image 2]</span>
+          <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);">Live Event</span>
         </div>
 
-        <div class="stat-cell">
-          <div class="stat-label">Events run</div>
-          <div class="stat-value">226</div>
-          <div class="stat-sub">Personally delivered</div>
-        </div>
-
-        <div class="stat-cell">
-          <div class="stat-label">Conversion rate</div>
-          <div class="stat-value">11.5&times;</div>
-          <div class="stat-sub">vs one-to-one sales</div>
+        <div class="img-placeholder" style="height: 180px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12h6M12 9v6"/></svg>
+          <span>[Framework Image 3]</span>
+          <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);">Step-by-Step</span>
         </div>
 
       </div>
-
     </div>
   </section>
 
 
-  <!-- ══════════════════════════════════════════════════════
-    WHAT YOU'LL DISCOVER + REGISTRATION FORM
-  ══════════════════════════════════════════════════════ -->
-  <section id="register" style="padding: 72px 0; border-bottom: 1px solid var(--dark-4);">
+  <!-- ══════════════════════════════════════════════
+    PROBLEM INTRO
+  ══════════════════════════════════════════════ -->
+  <section class="section section-alt">
     <div class="container">
-      <div class="reg-layout">
+      <div style="display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: center;">
 
-        <!-- LEFT COL: content -->
         <div>
-          <div class="section-label">In This Masterclass, You'll Discover</div>
-          <h2 style="margin-bottom: 8px;">
-            The exact system behind a <em style="color: var(--crimson); font-style: normal;">$100K day</em>
+          <!-- EDIT: section headline — frame the problem your audience faces -->
+          <div class="eyebrow" style="margin-bottom: 14px;">Who This Is For</div>
+          <h2 style="margin-bottom: 16px;">
+            Fill Your [Event/Program] With
+            <span class="text-accent">Premium High-Ticket Buyers...</span>
           </h2>
-          <div class="crimson-divider"></div>
+          <div class="section-divider"></div>
 
-          <!-- EDIT: sub paragraph — be specific about who this is for -->
-          <p style="color: var(--light-grey); margin-bottom: 32px; font-size: 15px; line-height: 1.75;">
-            This is for coaches, consultants, and experts charging $3K+ who are done
-            trading time for money and ready to install a one-to-many event model that
-            runs without them every 28 days.
+          <!-- EDIT: 2-3 paragraphs describing the problem and who this is for -->
+          <p style="margin-bottom: 16px; font-size: 16px;">
+            If you're a [coach/consultant/expert] who is [brief description of their current situation], this masterclass was designed specifically for you.
           </p>
-
-          <!-- EDIT: checklist — 4–6 specific outcomes. Start each with an action phrase. -->
-          <ul class="checklist">
-
-            <li>
-              <div class="check-dot"><div class="check-dot-inner"></div></div>
-              <span>Why most coaches run virtual events backwards — and the structural fix that changes everything overnight</span>
-            </li>
-
-            <li>
-              <div class="check-dot"><div class="check-dot-inner"></div></div>
-              <span>The Cash Flow Engine framework — how to turn registrations into real revenue before a single person shows up</span>
-            </li>
-
-            <li>
-              <div class="check-dot"><div class="check-dot-inner"></div></div>
-              <span>How I use AI to build the full funnel live — in real time, from scratch, on the call</span>
-            </li>
-
-            <li>
-              <div class="check-dot"><div class="check-dot-inner"></div></div>
-              <span>The self-liquidating ad model — where your ad spend pays for itself before you say a word from stage</span>
-            </li>
-
-            <li>
-              <div class="check-dot"><div class="check-dot-inner"></div></div>
-              <span>The 3-phase formula — 9 unique ingredients that work as one machine to generate repeatable $100K days</span>
-            </li>
-
-          </ul>
-
-          <!-- Secondary callout below checklist -->
-          <div class="callout" style="margin-top: 36px;">
-            "People who pay... pay attention. This masterclass is free because I want to
-            prove the model works before you spend a cent with me."
-          </div>
-
+          <p style="font-size: 16px;">
+            [Name of host] has helped [number] of [ideal clients] go from [before state] to [after state] — and in this free masterclass, [he/she/they] will show you the exact system to do the same.
+          </p>
         </div>
 
-        <!-- RIGHT COL: registration card -->
-        <div>
-          <div class="reg-card">
-
-            <div class="eyebrow" style="margin-bottom: 6px;">Reserve Your Spot</div>
-
-            <!-- EDIT: event title + format -->
-            <h3 style="margin-bottom: 10px;">Free &middot; Live &middot; 60 Minutes</h3>
-
-            <!-- EDIT: next session date/time -->
-            <p class="reg-meta">
-              Next session: <strong style="color: var(--white);">Thursday &middot; 11:00am AEST</strong>.
-              Strictly limited to live attendees.
-            </p>
-
-            <!-- Registration form — wire up to your email platform (ConvertKit, ActiveCampaign, GoHighLevel etc.) -->
-            <!-- EDIT: action URL for your email provider -->
-            <form class="reg-form" action="#" method="POST" onsubmit="handleReg(event)">
-
-              <!-- EDIT: add or remove fields as needed -->
-              <div class="field-group">
-                <label for="first-name">First name</label>
-                <input id="first-name" name="first_name" type="text" placeholder="Matthew" required />
-              </div>
-
-              <div class="field-group">
-                <label for="email">Email address</label>
-                <input id="email" name="email" type="email" placeholder="you@youremail.com" required />
-              </div>
-
-              <!-- Optional: phone field. Remove if not collecting phone. -->
-              <div class="field-group">
-                <label for="phone">Phone (optional — for SMS reminders)</label>
-                <input id="phone" name="phone" type="tel" placeholder="+61 400 000 000" />
-              </div>
-
-              <!-- EDIT: CTA label — use action-oriented language -->
-              <button type="submit" class="btn btn-primary btn-primary-lg">
-                Yes, Reserve My Spot &rarr;
-              </button>
-
-              <div class="reg-disclaimer">
-                No card required &nbsp;&middot;&nbsp; We never share your info
-              </div>
-
-            </form>
-          </div>
+        <!-- EDIT: replace with a real host or event photo -->
+        <div class="img-placeholder" style="height: 340px;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <span>[Host Photo]</span>
         </div>
 
       </div>
@@ -776,204 +701,776 @@
   </section>
 
 
-  <!-- ══════════════════════════════════════════════════════
-    TESTIMONIALS
-  ══════════════════════════════════════════════════════ -->
-  <section style="padding: 72px 0; border-bottom: 1px solid var(--dark-4);">
-    <div class="container">
+  <!-- ══════════════════════════════════════════════
+    PAIN POINTS (Long-Form Copy)
+  ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container" style="max-width: 760px;">
 
-      <div class="section-label">Client Proof</div>
-      <h2 style="margin-bottom: 4px;">These aren't outliers.</h2>
-      <h2><em class="hero-accent">They're the system, running.</em></h2>
-      <div class="crimson-divider"></div>
+      <!-- EDIT: opener — "Dear [Ideal Client]" style direct-response copy -->
+      <p style="font-size: 15px; font-weight: 600; color: var(--text-light); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.1em;">A message from [Host Name]</p>
+      <h2 style="margin-bottom: 8px;">Dear [Ideal Client],</h2>
+      <div class="section-divider"></div>
 
-      <!-- EDIT: replace with 2–4 real client testimonials. Always include NAME + ROLE. -->
-      <div class="testimonial-grid">
-
-        <div class="testimonial-card">
-          <div class="big-quote">"</div>
-          <p class="quote-text">
-            $25K in 8 weeks — and I was still validating the offer. I hadn't even
-            finished building it when the money landed.
-          </p>
-          <div class="client-name">Guy Bouchard</div>
-          <div class="client-role">Real estate &middot; Multifamily apartments</div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="big-quote">"</div>
-          <p class="quote-text">
-            $28,000 closed in 7 weeks. We're now projecting $680K by the end of the year
-            based on just two events run with this exact framework.
-          </p>
-          <div class="client-name">Vincent Holthouse</div>
-          <div class="client-role">Real estate &middot; Cashflow properties</div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="big-quote">"</div>
-          <p class="quote-text">
-            $50K closed in 3 months — from a single research call and one virtual event.
-            I hadn't run a webinar in my life before this.
-          </p>
-          <div class="client-name">Angie Roars</div>
-          <div class="client-role">Helps people stand out from the crowd</div>
-        </div>
-
-        <div class="testimonial-card">
-          <div class="big-quote">"</div>
-          <p class="quote-text">
-            $75K from 10 people in the room. Then $144K in upsells from the same group.
-            One event. Same formula every time.
-          </p>
-          <div class="client-name">Melanie Warner</div>
-          <div class="client-role">Helps people make money from books</div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════════════════
-    CLOSING CTA BANNER
-  ══════════════════════════════════════════════════════ -->
-  <section class="closing-banner">
-    <div class="container" style="max-width: 680px;">
-
-      <!-- EDIT: closing eyebrow -->
-      <div class="eyebrow eyebrow-pill" style="margin-bottom: 22px;">Spots are limited</div>
-
-      <!-- EDIT: closing headline — create urgency without being fake -->
-      <h2 style="margin-bottom: 16px;">
-        The model is free to learn.<br/>
-        The seat isn't guaranteed.
-      </h2>
-
-      <!-- EDIT: closing sub copy -->
-      <p style="color: var(--light-grey); font-size: 16px; margin-bottom: 32px; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.7;">
-        I run these live and I cap the room. Once it's full, the registration closes.
-        Reserve now and get the replay link emailed whether you attend live or not.
+      <!-- EDIT: opening hook — start with their pain, be specific -->
+      <p class="lead" style="margin-bottom: 20px;">
+        I know what it feels like to [relatable pain point]. I spent [timeframe] trying to [old approach] — and it nearly cost me [what they risked losing].
       </p>
 
-      <a href="#register" class="btn btn-primary" style="font-size: 15px; padding: 18px 44px; min-height: 58px;">
-        Reserve My Free Spot &rarr;
+      <p style="margin-bottom: 16px;">
+        Maybe you can relate. You're [doing X], but [problem]. You're spending [money/time] on [thing], and [frustrating result]. And deep down, you know there has to be a better way.
+      </p>
+
+      <p style="margin-bottom: 32px;">
+        If any of this sounds familiar — you're in the right place. Because I've figured out exactly what's broken, and more importantly, I know how to fix it.
+      </p>
+
+      <!-- EDIT: pain point bullets — 4-6 specific frustrations your audience feels -->
+      <h3 style="margin-bottom: 18px;">Sound familiar?</h3>
+      <ul class="checklist" style="margin-bottom: 36px;">
+        <li>
+          <div class="check-icon" style="background: #ef4444;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </div>
+          [Pain point 1 — be specific and emotional]
+        </li>
+        <li>
+          <div class="check-icon" style="background: #ef4444;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </div>
+          [Pain point 2 — the thing they try that doesn't work]
+        </li>
+        <li>
+          <div class="check-icon" style="background: #ef4444;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </div>
+          [Pain point 3 — the belief they've started to form about themselves]
+        </li>
+        <li>
+          <div class="check-icon" style="background: #ef4444;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </div>
+          [Pain point 4 — the cost of the status quo]
+        </li>
+      </ul>
+
+      <!-- EDIT: transition — bridge from problem to solution -->
+      <p style="font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 0;">
+        The good news? It's not your fault — and there's a proven way out. That's exactly what I'm going to show you at this FREE masterclass.
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+    PROOF STATS
+  ══════════════════════════════════════════════ -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="text-center" style="margin-bottom: 36px;">
+        <div class="eyebrow" style="margin-bottom: 12px;">Real Results</div>
+        <!-- EDIT: proof section headline -->
+        <h2>The Numbers Speak for Themselves</h2>
+        <div class="section-divider centered"></div>
+      </div>
+
+      <!-- EDIT: replace with YOUR real, specific numbers — never vague -->
+      <div class="stats-row">
+        <div class="stat-cell">
+          <div class="stat-value">[$X.XM]</div>
+          <div class="stat-label">[Label — e.g. "in client results"]</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-value">[XXX]</div>
+          <div class="stat-label">[Label — e.g. "events delivered"]</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-value">[X×]</div>
+          <div class="stat-label">[Label — e.g. "higher conversion"]</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+    FRAMEWORK / METHOD SECTION
+  ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;">
+
+        <!-- EDIT: replace with a diagram or framework visual -->
+        <div class="img-placeholder" style="height: 320px;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <span>[Your Method/Framework Diagram]</span>
+          <span style="font-size: 11px; color: var(--text-light);">Replace with real image</span>
+        </div>
+
+        <div>
+          <div class="eyebrow" style="margin-bottom: 14px;">The Method</div>
+          <!-- EDIT: your method/system name and description -->
+          <h2 style="margin-bottom: 12px;">Introducing:<br/><span class="text-accent">"[Your Method Name™]"</span></h2>
+          <div class="section-divider"></div>
+          <p style="margin-bottom: 20px; font-size: 16px;">
+            [1-2 sentences describing what your method is and why it's different from everything else your audience has tried.]
+          </p>
+          <p style="font-size: 16px;">
+            [Continue the description — what makes it unique, how long it takes, what the outcome is.]
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+    WHAT YOU'LL DISCOVER
+  ══════════════════════════════════════════════ -->
+  <section class="section section-alt">
+    <div class="container" style="max-width: 760px;">
+
+      <div class="text-center" style="margin-bottom: 36px;">
+        <div class="eyebrow" style="margin-bottom: 12px;">Inside The Masterclass</div>
+        <h2>In This Free Masterclass,<br/>You'll Discover:</h2>
+        <div class="section-divider centered"></div>
+      </div>
+
+      <!-- EDIT: 5-7 specific outcomes. Start each with an action verb. -->
+      <ul class="checklist">
+        <li>
+          <div class="check-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          [Outcome 1 — what they'll learn and why it matters]
+        </li>
+        <li>
+          <div class="check-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          [Outcome 2 — the specific technique or framework they'll get]
+        </li>
+        <li>
+          <div class="check-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          [Outcome 3 — a result they'll be able to achieve after the call]
+        </li>
+        <li>
+          <div class="check-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          [Outcome 4 — something surprising or counterintuitive they'll learn]
+        </li>
+        <li>
+          <div class="check-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          [Outcome 5 — the main transformation or takeaway]
+        </li>
+      </ul>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+    BEFORE / AFTER
+  ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="text-center" style="margin-bottom: 36px;">
+        <div class="eyebrow" style="margin-bottom: 12px;">Before vs. After</div>
+        <!-- EDIT: comparison section headline -->
+        <h2>Stop [Old Way]. Start [New Way].</h2>
+        <div class="section-divider centered"></div>
+      </div>
+
+      <div class="before-after">
+
+        <!-- EDIT: before column — their current painful reality -->
+        <div class="before-col">
+          <h3>Before: [The Broken Model]</h3>
+          <ul class="ba-list">
+            <li><span class="ba-icon">✗</span> [Pain 1 — what their life looks like now]</li>
+            <li><span class="ba-icon">✗</span> [Pain 2 — what they're wasting money/time on]</li>
+            <li><span class="ba-icon">✗</span> [Pain 3 — the stress or uncertainty they feel]</li>
+            <li><span class="ba-icon">✗</span> [Pain 4 — what they're not achieving]</li>
+          </ul>
+        </div>
+
+        <!-- EDIT: after column — the world your method unlocks -->
+        <div class="after-col">
+          <h3>After: [Your Method Name]</h3>
+          <ul class="ba-list">
+            <li><span class="ba-icon">✓</span> [Win 1 — the positive outcome they'll experience]</li>
+            <li><span class="ba-icon">✓</span> [Win 2 — the specific result they'll get]</li>
+            <li><span class="ba-icon">✓</span> [Win 3 — the freedom or confidence they'll feel]</li>
+            <li><span class="ba-icon">✓</span> [Win 4 — the transformation they'll achieve]</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+    URGENCY / SCARCITY
+  ══════════════════════════════════════════════ -->
+  <section class="section" style="background: var(--accent); color: #fff;">
+    <div class="container text-center" style="max-width: 700px;">
+
+      <!-- EDIT: urgency headline -->
+      <h2 style="color: #fff; margin-bottom: 16px;">This Is Time-Sensitive</h2>
+      <div class="section-divider centered" style="background: rgba(255,255,255,0.5);"></div>
+
+      <!-- EDIT: scarcity/urgency copy — be honest and specific -->
+      <p style="color: rgba(255,255,255,0.9); font-size: 17px; margin-bottom: 8px;">
+        This masterclass is kept small and intimate — maximum [X] attendees — so every person gets real value, not just a passive webinar experience.
+      </p>
+      <p style="color: rgba(255,255,255,0.85); font-size: 16px; margin-bottom: 32px;">
+        There is <strong>no replay</strong>. You must attend live to get the full [framework/system/training].
+      </p>
+
+      <a href="#register" class="btn" style="background: #fff; color: var(--accent); font-size: 18px; padding: 18px 44px; min-height: 60px; border-radius: var(--radius);">
+        Secure My Spot Now &rarr;
       </a>
 
     </div>
   </section>
 
 
-  <!-- ══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════
+    VALUE GRID (Connection / Certainty / Clarity)
+  ══════════════════════════════════════════════ -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="text-center" style="margin-bottom: 36px;">
+        <div class="eyebrow" style="margin-bottom: 12px;">What You'll Walk Away With</div>
+        <h2>Three Things You'll Leave With</h2>
+        <div class="section-divider centered"></div>
+      </div>
+
+      <!-- EDIT: three value pillars — what attendees get from the event -->
+      <div class="value-grid">
+
+        <div class="value-card">
+          <div class="value-icon">01</div>
+          <!-- EDIT: pillar 1 title and description -->
+          <h4>[Value Pillar 1]</h4>
+          <p>[2-3 sentence description of what they'll specifically gain. Be concrete.]</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">02</div>
+          <!-- EDIT: pillar 2 -->
+          <h4>[Value Pillar 2]</h4>
+          <p>[2-3 sentence description. Lead with a specific outcome they'll be able to achieve.]</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">03</div>
+          <!-- EDIT: pillar 3 -->
+          <h4>[Value Pillar 3]</h4>
+          <p>[2-3 sentence description. End with the emotion they'll feel after the event.]</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+    HOST BIO
+  ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="text-center" style="margin-bottom: 40px;">
+        <div class="eyebrow" style="margin-bottom: 12px;">Your Host</div>
+        <h2>Meet [Host Name]</h2>
+        <div class="section-divider centered"></div>
+      </div>
+
+      <div class="host-layout">
+
+        <!-- EDIT: replace with real host photo -->
+        <div>
+          <div class="host-photo">[Host Photo]</div>
+          <!-- EDIT: credentials list — use real numbers always -->
+          <div class="host-credentials">
+            <div class="credential"><div class="c-icon">$</div> [$X,XXX,XXX] in [result]</div>
+            <div class="credential"><div class="c-icon">#</div> [X] Years Experience</div>
+            <div class="credential"><div class="c-icon">★</div> [Credential or award]</div>
+            <div class="credential"><div class="c-icon">✓</div> [Another specific proof point]</div>
+          </div>
+        </div>
+
+        <!-- EDIT: host bio — tell the story, include the doubt before the proof -->
+        <div>
+          <p style="font-size: 16px; margin-bottom: 16px;">
+            [Host Name] is [who they are]. [One sentence on their background / where they came from].
+          </p>
+          <p style="margin-bottom: 16px;">
+            [The story — what wasn't working, the moment things changed, how they discovered the method]. Name the doubt before the proof.
+          </p>
+          <p style="margin-bottom: 16px;">
+            Today, [host name] has [specific result]. [He/She/They] created [method name] to help [ideal clients] achieve [outcome] — without [main objection].
+          </p>
+          <p>
+            In this free masterclass, [host name] will show you exactly how [he/she/they] did it and how you can replicate the same results.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+    VIDEO TESTIMONIALS
+  ══════════════════════════════════════════════ -->
+  <section class="section section-alt">
+    <div class="container">
+
+      <div class="text-center" style="margin-bottom: 36px;">
+        <div class="eyebrow" style="margin-bottom: 12px;">Client Success Stories</div>
+        <h2>Stories of Success with [Host Name]</h2>
+        <div class="section-divider centered"></div>
+      </div>
+
+      <!-- EDIT: embed real Vimeo/YouTube videos. Replace each video-wrap div with:
+           <iframe src="https://www.youtube.com/embed/VIDEO_ID" ...></iframe>
+           or use your platform's embed code -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px;">
+
+        <div>
+          <div class="video-wrap" style="margin-bottom: 10px;">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--text);">[Client Name]</div>
+          <div style="font-size: 12px; color: var(--text-light);">[Niche / Role]</div>
+        </div>
+
+        <div>
+          <div class="video-wrap" style="margin-bottom: 10px;">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--text);">[Client Name]</div>
+          <div style="font-size: 12px; color: var(--text-light);">[Niche / Role]</div>
+        </div>
+
+        <div>
+          <div class="video-wrap" style="margin-bottom: 10px;">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--text);">[Client Name]</div>
+          <div style="font-size: 12px; color: var(--text-light);">[Niche / Role]</div>
+        </div>
+
+      </div>
+
+      <!-- EDIT: text testimonials — use real quotes with real names + results -->
+      <div class="testimonial-grid">
+
+        <div class="testimonial-card">
+          <div class="t-avatar">
+            <img src="https://placehold.co/52x52/f0f0f0/aaaaaa?text=?" alt="Client" style="width:100%; height:100%; object-fit:cover;" />
+          </div>
+          <p class="t-quote">"[Specific result quote — include a number if possible. E.g. '$25,000 in 8 weeks — while still validating the offer.']"</p>
+          <div class="t-name">[Client First + Last Name]</div>
+          <div class="t-role">[Their niche or title]</div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="t-avatar">
+            <img src="https://placehold.co/52x52/f0f0f0/aaaaaa?text=?" alt="Client" style="width:100%; height:100%; object-fit:cover;" />
+          </div>
+          <p class="t-quote">"[Testimonial 2 — result-focused, specific dollar amount or timeframe]"</p>
+          <div class="t-name">[Client Name]</div>
+          <div class="t-role">[Role]</div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="t-avatar">
+            <img src="https://placehold.co/52x52/f0f0f0/aaaaaa?text=?" alt="Client" style="width:100%; height:100%; object-fit:cover;" />
+          </div>
+          <p class="t-quote">"[Testimonial 3 — can be emotional/transformation focused]"</p>
+          <div class="t-name">[Client Name]</div>
+          <div class="t-role">[Role]</div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="t-avatar">
+            <img src="https://placehold.co/52x52/f0f0f0/aaaaaa?text=?" alt="Client" style="width:100%; height:100%; object-fit:cover;" />
+          </div>
+          <p class="t-quote">"[Testimonial 4]"</p>
+          <div class="t-name">[Client Name]</div>
+          <div class="t-role">[Role]</div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="t-avatar">
+            <img src="https://placehold.co/52x52/f0f0f0/aaaaaa?text=?" alt="Client" style="width:100%; height:100%; object-fit:cover;" />
+          </div>
+          <p class="t-quote">"[Testimonial 5]"</p>
+          <div class="t-name">[Client Name]</div>
+          <div class="t-role">[Role]</div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="t-avatar">
+            <img src="https://placehold.co/52x52/f0f0f0/aaaaaa?text=?" alt="Client" style="width:100%; height:100%; object-fit:cover;" />
+          </div>
+          <p class="t-quote">"[Testimonial 6]"</p>
+          <div class="t-name">[Client Name]</div>
+          <div class="t-role">[Role]</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+    REGISTRATION FORM — main (id="register")
+  ══════════════════════════════════════════════ -->
+  <section id="register" class="section">
+    <div class="container text-center" style="max-width: 560px;">
+
+      <div class="eyebrow" style="margin-bottom: 14px;">Your Next Step Is Simple</div>
+      <!-- EDIT: closing CTA headline -->
+      <h2 style="margin-bottom: 8px;">
+        Stop [old behaviour].<br/>Start Getting <span class="text-accent">[Desired Result].</span>
+      </h2>
+      <div class="section-divider centered"></div>
+      <p style="margin-bottom: 32px; font-size: 16px;">
+        Register below and join [Host Name] live for this free [X]-minute masterclass.
+        Get confident. Get results. Get paid.
+      </p>
+
+      <div class="reg-box">
+        <div class="reg-box-title">Reserve Your FREE Spot</div>
+
+        <!-- EDIT: event date/time in the form card -->
+        <div class="reg-box-sub">
+          [Day], [Month] [Date] &nbsp;·&nbsp; [Time] [Timezone] &nbsp;·&nbsp; Free
+        </div>
+
+        <!-- EDIT: wire this form to GoHighLevel / ConvertKit / ActiveCampaign
+             For GHL: replace <form> action with your GHL form embed or
+             copy the field names to match your GHL custom form -->
+        <form class="form-stack" onsubmit="handleSubmit(event)">
+
+          <!-- EDIT: add/remove fields to match your ESP requirements -->
+          <div class="field">
+            <label for="reg-first">First Name</label>
+            <input id="reg-first" name="first_name" type="text" placeholder="Your first name" required />
+          </div>
+
+          <div class="field">
+            <label for="reg-email">Email Address</label>
+            <input id="reg-email" name="email" type="email" placeholder="your@email.com" required />
+          </div>
+
+          <!-- Optional: phone field -->
+          <div class="field">
+            <label for="reg-phone">Phone (optional — for SMS reminders)</label>
+            <input id="reg-phone" name="phone" type="tel" placeholder="+1 (555) 000-0000" />
+          </div>
+
+          <!-- EDIT: CTA button text -->
+          <button type="submit" class="btn btn-primary btn-primary-lg" style="margin: 8px auto 0;">
+            Register For FREE &rarr;
+          </button>
+
+          <p class="form-note">
+            100% free. No credit card required. Your information is kept private and never shared.
+          </p>
+
+        </form>
+      </div>
+
+      <!-- EDIT: host sign-off -->
+      <div style="margin-top: 32px; font-size: 15px; color: var(--text-muted);">
+        <p>See you at the event,</p>
+        <p style="font-weight: 700; color: var(--text); margin-top: 4px;">[Host Name]</p>
+        <p style="font-size: 13px; margin-top: 6px; color: var(--text-light);">
+          P.S. — [One final urgency/reinforcement line. Remind them this is free and there's no replay.]
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+    FAQ
+  ══════════════════════════════════════════════ -->
+  <section class="section section-alt">
+    <div class="container" style="max-width: 720px;">
+
+      <div class="text-center" style="margin-bottom: 36px;">
+        <div class="eyebrow" style="margin-bottom: 12px;">FAQ</div>
+        <h2>Frequently Asked Questions</h2>
+        <div class="section-divider centered"></div>
+      </div>
+
+      <!-- EDIT: add/edit FAQ questions. The accordion is powered by the JS at the bottom. -->
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Is this just another sales pitch?
+            <span class="faq-arrow">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </button>
+          <div class="faq-a">
+            <!-- EDIT: your honest answer to the sales pitch objection -->
+            [Host Name] will be sharing [specific content]. Yes, at the end there will be an opportunity to learn about [next step/offer], but the training itself is 100% real and actionable. You will walk away with [specific outcome] whether you take the next step or not.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Will there be a replay?
+            <span class="faq-arrow">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </button>
+          <div class="faq-a">
+            <!-- EDIT: replay policy -->
+            No replay will be offered. This event is designed to be live and interactive — the value comes from being in the room in real time. Register and block out the [X] minutes on your calendar.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How often do you run this event?
+            <span class="faq-arrow">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </button>
+          <div class="faq-a">
+            <!-- EDIT: event frequency -->
+            [Host Name] runs this event [frequency — e.g. "once a month"]. Spots are limited each session. If you can make this one, register now. If you miss it, sign up for the waitlist for the next session at [email or link].
+          </div>
+        </div>
+
+        <!-- EDIT: add more FAQ items using the same structure -->
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Who is this masterclass for?
+            <span class="faq-arrow">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </button>
+          <div class="faq-a">
+            <!-- EDIT: who it's for -->
+            This is specifically for [ideal client description]. If you are [qualifying criteria] and want [desired outcome], this masterclass was built for you. It is not for [who it's NOT for — set expectations].
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
+    FINAL CTA
+  ══════════════════════════════════════════════ -->
+  <section class="section" style="background: var(--bg-dark); color: #fff;">
+    <div class="container text-center" style="max-width: 660px;">
+
+      <!-- EDIT: final CTA headline — last chance, emotional, outcome-focused -->
+      <h2 style="color: #fff; margin-bottom: 16px;">
+        [Ideal Client] — This Is Your Moment
+      </h2>
+      <p style="color: rgba(255,255,255,0.75); font-size: 17px; margin-bottom: 32px; max-width: 520px; margin-left: auto; margin-right: auto;">
+        [One final push — why now, what they'll miss if they don't, what's waiting on the other side.]
+      </p>
+
+      <!-- EDIT: button text + date -->
+      <a href="#register" class="btn btn-primary btn-primary-lg" style="max-width: 400px;">
+        Register For FREE &rarr;
+      </a>
+
+      <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 16px;">
+        [Day], [Date] &nbsp;·&nbsp; [Time] [Timezone] &nbsp;·&nbsp; 100% Free &nbsp;·&nbsp; No Replay
+      </p>
+
+      <!-- EDIT: final group/community image -->
+      <div class="img-placeholder" style="height: 180px; margin-top: 36px; border-color: rgba(255,255,255,0.1);">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span style="color: rgba(255,255,255,0.3);">[Community / Event Photo]</span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════
     FOOTER
-  ══════════════════════════════════════════════════════ -->
+  ══════════════════════════════════════════════ -->
   <footer class="site-footer">
     <div class="container">
 
-      <!-- EDIT: swap for your logo -->
-      <img src="../assets/logo-light.png" alt="Your Brand" class="footer-logo" />
-
-      <!-- EDIT: your brand tagline / method name -->
-      <div class="footer-tagline">Your Brand &middot; Your Method Name</div>
-
-      <!-- EDIT: copyright year and brand name -->
-      <div class="footer-copy">&copy; 2025 Your Brand. All rights reserved.</div>
-
-      <!-- EDIT: add or remove footer links. Link to real pages. -->
-      <div class="footer-links">
-        <a href="#">Privacy Policy</a>
+      <!-- EDIT: footer nav links -->
+      <div class="footer-nav">
+        <a href="#">Home</a>
         <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Disclaimer</a>
         <a href="#">Contact</a>
       </div>
+
+      <!-- EDIT: platform disclaimer if running Facebook/Google ads -->
+      <p class="footer-disclaimer">
+        This site is not a part of the Facebook website or Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc. Results mentioned are not typical. Individual results will vary based on effort, experience, and market conditions.
+      </p>
+
+      <!-- EDIT: copyright -->
+      <div class="footer-copy">&copy; [Year] [Your Brand Name] — All rights reserved.</div>
 
     </div>
   </footer>
 
 
-  <!-- ══════════════════════════════════════════════════════
-    FORM HANDLER (demo — replace with your ESP integration)
-  ══════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════
+    JAVASCRIPT
+  ══════════════════════════════════════════════ -->
   <script>
-    function handleReg(e) {
+    /* FAQ accordion */
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-q').forEach(b => b.classList.remove('open'));
+      // Open clicked (if it was closed)
+      if (!isOpen) {
+        answer.classList.add('open');
+        btn.classList.add('open');
+      }
+    }
+
+    /* Form submission — replace with your platform's logic */
+    function handleSubmit(e) {
       e.preventDefault();
-      // EDIT: replace this with your actual form submission logic.
-      // Options:
-      //   - ConvertKit: use their embed form JS
-      //   - GoHighLevel: use GHL's form embed or webhook
-      //   - ActiveCampaign: use their form action URL
-      //   - Zapier: POST to a Zap webhook
-      //   - Redirect to thank-you page: window.location.href = '/thank-you';
-      alert('Form submitted! Replace this with your email platform integration.');
+      /*
+        INTEGRATION OPTIONS:
+        ─────────────────────────────────────────────
+        GoHighLevel:
+          Replace this <form> tag with your GHL form embed snippet,
+          or POST to your GHL webhook:
+          fetch('https://your-ghl-webhook.com', { method: 'POST', body: new FormData(e.target) })
+
+        ConvertKit:
+          Replace <form action="#"> with your ConvertKit form action URL
+          and remove this onsubmit handler.
+
+        ActiveCampaign:
+          Use AC's embed form code or POST to their form handler URL.
+
+        Redirect after submit:
+          window.location.href = '/thank-you';
+        ─────────────────────────────────────────────
+      */
+      alert('Registration submitted! Replace this handler with your platform integration.');
     }
   </script>
 
 
   <!--
   ================================================================
-  VIBE CODING PROMPT — Template 01: Masterclass Opt-In Page
+  VIBE CODING PROMPT — Template 01: Live Event / Masterclass Page
   ================================================================
 
-  Copy everything below the dashes and paste it into Claude, ChatGPT,
-  or your AI coding tool of choice. Fill in the [BRACKETS] with your
-  specific details and it will regenerate this page with your content.
+  Copy the prompt below and paste it into Claude, ChatGPT, or any
+  AI coding tool. Fill in the [BRACKETS] with your client's details.
+  The AI will regenerate this entire page with their content.
 
   ──────────────────────────────────────────────────────────────────
 
-  Create a single-file HTML landing page for a free live masterclass
-  opt-in / registration page. Use this exact visual style:
+  Create a complete single-file HTML landing page for a free live
+  masterclass / virtual event registration page.
 
-  DESIGN RULES (do not deviate):
-  - Dark background (#111111) with a subtle crimson grid texture
-    (40px grid, rgba(219,0,99,0.03) opacity)
-  - Only font: Montserrat from Google Fonts (400, 500, 700, 900)
-  - Only accent color: crimson #db0063 (hover: #a8004b)
-  - All headlines: uppercase, font-weight 900, letter-spacing -0.02em
-  - Card surfaces: #1a1a1a with 1px solid #2b2b2b borders, 4px radius max
-  - Buttons: crimson fill, white text, font-weight 900, 2px radius, no shadows
-  - No gradients except subtle crimson glow effects
-  - No emoji anywhere on the page
-  - Numbers must always be specific and real — never vague
+  DESIGN RULES:
+  - Light white background (#ffffff) with light grey alternate sections (#f7f8fa)
+  - One accent/brand color (I will provide the hex code below) used for
+    buttons, highlights, dividers, and links
+  - Font: Inter from Google Fonts (400, 500, 600, 700, 800, 900)
+  - Buttons: accent color fill, white text, border-radius 8px, bold uppercase
+  - Clean, professional, direct-response style — no dark backgrounds
+  - Mobile responsive
 
-  PAGE STRUCTURE (in this order):
-  1. Sticky header — logo on left, "Reserve My Spot →" link on right
-  2. Hero — eyebrow pill, h1 headline, sub copy, pull quote block, CTA button
-  3. Stats row — 4 real numbers in a grid (one highlighted with crimson top border)
-  4. Two-column section: left = checklist of 5 outcomes; right = sticky registration card
-  5. Testimonials — 2×2 grid of client cards (quote + name + role)
-  6. Closing CTA banner — urgency headline + repeat CTA
-  7. Footer — logo, tagline, copyright, privacy/terms links
+  PAGE SECTIONS (in this exact order):
+  1. Urgency top bar — event date + "no replay" message
+  2. Centered header — logo only
+  3. Hero — eyebrow pill, h1 headline, sub copy, live date badge with
+     pulsing dot, primary CTA button, privacy note
+  4. 3-column product/framework image strip
+  5. Problem intro — heading + host photo (right column)
+  6. Long-form copy — "Dear [Ideal Client]" opener, pain point bullets
+     with red X icons
+  7. Proof stats — 3-column grid with accent-colored numbers
+  8. Method/framework section — diagram image (left) + description (right)
+  9. "What you'll discover" — checklist with accent-colored check icons
+  10. Before/After comparison — red "broken" column vs green "solution" column
+  11. Urgency/scarcity banner — accent background, white text, CTA button
+  12. 3-column value grid — numbered pillars (01, 02, 03)
+  13. Host bio — photo + credentials list (left) + story copy (right)
+  14. Video testimonials — 3 placeholder video embeds in a row
+  15. Text testimonials — 2x3 grid with avatar, quote, name, role
+  16. Registration form section — bordered form box with fields
+  17. FAQ accordion — 4 questions with expand/collapse
+  18. Final dark CTA section — dark background, white text, repeat CTA
+  19. Footer — nav links, disclaimer, copyright
 
   CONTENT TO INSERT:
-  - Brand/business name: [YOUR BRAND NAME]
-  - Event name: [YOUR MASTERCLASS TITLE]
-  - Event format + duration: [e.g., Free · Live · 90 Min]
-  - Next session date/time: [e.g., Thursday · 7pm EST]
-  - Headline: [YOUR MAIN HEADLINE — lead with the outcome]
-  - Sub copy (2–3 sentences): [YOUR SUB COPY — start with the reader's pain]
-  - Pull quote (your most dramatic result): [e.g., "$X from Y people in Z hours"]
-  - Stat 1 label + value + sub: [e.g., Lifetime revenue / $5.2M / Consulting clients]
-  - Stat 2 label + value + sub (highlight): [e.g., Best single event / $187K / 22 attendees]
-  - Stat 3 label + value + sub: [e.g., Events run / 48 / Personally delivered]
-  - Stat 4 label + value + sub: [e.g., Close rate / 3.2× / vs industry average]
-  - Checklist item 1: [specific outcome]
-  - Checklist item 2: [specific outcome]
-  - Checklist item 3: [specific outcome]
-  - Checklist item 4: [specific outcome]
-  - Checklist item 5: [specific outcome]
-  - Form fields: [First name, Email, Phone (optional) — or customise]
-  - CTA button text: [e.g., "Yes, Reserve My Spot →"]
-  - Testimonial 1: quote / name / role
-  - Testimonial 2: quote / name / role
-  - Testimonial 3: quote / name / role
-  - Testimonial 4: quote / name / role
-  - Closing urgency copy: [1–2 sentences]
-  - Footer tagline: [Your brand sub-name or method name]
-  - Copyright line: [Year + brand name]
+  - Brand/business name: [YOUR BRAND]
+  - Accent color (hex): [e.g. #e8003d]
+  - Host name: [FULL NAME]
+  - Event name: [EVENT TITLE]
+  - Event date + time + timezone: [e.g. Thursday, June 12 at 12pm PT]
+  - Ideal client description: [e.g. coaches charging $3K+]
+  - Main headline: [outcome-focused, specific]
+  - Sub headline: [who it's for + the big promise]
+  - Pain points (4 bullets): [specific frustrations]
+  - Proof stats (3): [label / number / sub-label each]
+  - Method/system name: [YOUR METHOD NAME™]
+  - Method description (2 paragraphs): [what it is + why it's different]
+  - What you'll discover (5 bullets): [specific outcomes]
+  - Before column (4 bullets): [painful current reality]
+  - After column (4 bullets): [positive transformation]
+  - Urgency copy (2 sentences): [limited spots + no replay]
+  - Value pillars (3): [title + 2-3 sentence description each]
+  - Host bio (4 paragraphs): [story, doubt before proof, result, method]
+  - Host credentials (4): [specific numbers and claims]
+  - Testimonials (6): [quote / name / role each]
+  - FAQ (4 Q&A pairs): [honest answers]
+  - Final CTA headline: [emotional, outcome-focused]
+  - Footer links: [Home, Terms, Privacy, Disclaimer, Contact]
+  - Copyright: [Year + Brand Name]
 
-  OUTPUT: One complete HTML file, no external CSS files, no frameworks.
-  Include a <script> tag at the bottom with a placeholder form handler
-  comment explaining how to wire it to ConvertKit / GoHighLevel / Zapier.
+  OUTPUT: One complete self-contained HTML file. No external CSS files.
+  No JavaScript frameworks. Include GoHighLevel / ConvertKit / ActiveCampaign
+  integration comments in the form submit handler.
 
   ================================================================
   END VIBE CODING PROMPT
